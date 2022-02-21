@@ -11,14 +11,14 @@ export const pwdCheck = (pwd) => {
 };
 
 // 닉네임(이름) 형식: 한글 또는 알파벳 대소문자(a~z, A~Z)
-// export const nicknameCheck = (nickname) => {
-//   let _reg = /^[가-힣a-zA-Z]+$/;
-//   return _reg.test(nickname);
-// };
+export const nicknameCheck = (nickname) => {
+  let _reg = /^[가-힣a-zA-Z]+$/;
+  return _reg.test(nickname);
+};
 
-//이메일 형식
-// export const emailCheck = (email) => {
-//   let _reg =
-//     /^[0-9a-zA-Z]([-_.0-9a-zA-Z])*@[0-9a-zA-Z]([-_.0-9a-zA-Z])*.([a-zA-Z])*/;
-//   return _reg.test(email);
-// };
+// 이메일 형식
+export const emailCheck = (email) => {
+  let _reg =
+    /^[0-9a-zA-Z]([-_.0-9a-zA-Z])*@[0-9a-zA-Z]([-_.0-9a-zA-Z])*.([a-zA-Z])*/;
+  return _reg.test(email);
+};

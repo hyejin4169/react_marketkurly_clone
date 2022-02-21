@@ -77,12 +77,7 @@ const Logo = styled.div`
 `;
 
 const HeaderCategory = styled.ul`
-<<<<<<< HEAD
-  /* display: flex; */
-  display: -webkit-inline-box;
-=======
   display: flex;
->>>>>>> origin/hyejin
   padding: 0px;
   font-weight: bold;
   margin-top: 90px;
@@ -95,11 +90,7 @@ const HeaderCategory = styled.ul`
     text-align: center;
     cursor: pointer;
     line-height: 20px;
-<<<<<<< HEAD
 
-=======
-    
->>>>>>> origin/hyejin
     &:hover {
       color: purple;
       text-decoration: underline;
@@ -117,11 +108,7 @@ const HeaderCategory = styled.ul`
 // `
 
 const CartIcon = styled.span`
-<<<<<<< HEAD
   display: block;
-=======
-display: block;
->>>>>>> origin/hyejin
   margin-left: 1000px;
   position: absolute;
   width: 36px;
@@ -130,13 +117,8 @@ display: block;
   background-image: url("https://res.kurly.com/pc/service/common/2011/ico_cart.svg");
   &:hover {
     background-image: url("https://res.kurly.com/pc/service/common/2011/ico_cart_on.svg?v=1");
-<<<<<<< HEAD
   }
 `;
-=======
-}
-`
->>>>>>> origin/hyejin
 const Search = styled.input`
   border-radius: 50px;
   box-sizing: border-box;
@@ -147,20 +129,13 @@ const Search = styled.input`
   width: 235px;
   height: 35px;
   padding: 0 60px 0 14px;
-<<<<<<< HEAD
   margin-bottom: 2px;
   letter-spacing: -1px;
   font-family: "Noto Sans";
-=======
-  margin-bottom: 2PX;
-  letter-spacing: -1px;
-  font-family: 'Noto Sans';
->>>>>>> origin/hyejin
   font-weight: 400;
   font-size: 12px;
   color: #666;
   line-height: 16px;
-<<<<<<< HEAD
 `;
 
 const CategoryIcon = styled.span`
@@ -174,20 +149,3 @@ const CategoryIcon = styled.span`
 `;
 
 export default Header;
-=======
-  
-`;
-
-const CategoryIcon = styled.span`
-    background: url(https://res.kurly.com/pc/service/common/1908/ico_gnb_all_off_x2.png) no-repeat 0 0;
-    background-size: 16px 14px;
-    float: left;
-    width: 16px;
-    height: 14px;
-    margin: 10px 14px 0 0;
-`
-
-
-
-export default Header;
->>>>>>> origin/hyejin
