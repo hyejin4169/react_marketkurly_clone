@@ -62,31 +62,31 @@ const Header = (props) => {
           </div>
         </LogoWrap>
 
-        <CategoryWrap>
-          <div>
-            <HeaderCategory>
-              <CategoryIcon></CategoryIcon>
-              <li>전체 카테고리</li>
-              <li>신상품</li>
-              <li>베스트</li>
-              <li>알뜰쇼핑 </li>
-              <li> 특가/혜택</li>
-              <SearchWrap>
-                <Search placeholder="검색어를 입력해주세요."></Search>
-                <SearchIcon></SearchIcon>
-              </SearchWrap>
-              <IconWrap>
-                <LocationIcon />
-                <HeartIcon />
-                <CartIcon
-                  onClick={() => {
-                    navigate("/cart");
-                  }}
-                />
-              </IconWrap>
-            </HeaderCategory>
-          </div>
-        </CategoryWrap>
+
+        <div>
+          <HeaderCategory>
+            <CategoryIcon></CategoryIcon>
+            <li>전체 카테고리</li>
+            <li>신상품</li>
+            <li>베스트</li>
+            <li>알뜰쇼핑 </li>
+            <li> 특가/혜택</li>
+            <SearchWrap>
+              <Search placeholder="검색어를 입력해주세요."></Search>
+              <SearchIcon></SearchIcon>
+            </SearchWrap>
+            <IconWrap>
+              <LocationIcon />
+              <HeartIcon />
+              <CartIcon
+                onClick={() => {
+                  navigate("/cart");
+                }}
+              />
+            </IconWrap>
+          </HeaderCategory>
+        </div>
+
       </Grid>
     </React.Fragment>
   );
@@ -103,13 +103,11 @@ const UserMenu = styled.ul`
   position: relative;
   cursor: pointer;
   list-style: none;
-  height: 37px;
+  height: 11px;
   color: #4c4c4c;
   font-size: 12px;
   & li {
-    /* padding: 0 12px; */
     position: relative;
-    top: 9px;
     color: #4c4c4c;
     font-size: 12px;
   }
@@ -136,29 +134,20 @@ const DeliveryIcon = styled.span`
   background: url(https://res.kurly.com/pc/service/common/2011/delivery_210801.png)
     no-repeat;
   background-size: cover;
-  left: 0;
-  top: 9px;
-`;
+
+  left : 0;
+`
 
 const LogoWrap = styled.div`
-  position: relative;
-  height: 63px;
-  margin: 0 auto;
-  & div {
-    position: absolute;
-    left: 0;
-    bottom: 6px;
-    width: 100%;
-    height: 79px;
-    text-align: center;
-    margin: auto 0;
-  }
-`;
+    position: relative;
+    height: 63px;
+    margin: 0 auto;
+   
+`
 
-const Logo = styled.h1`
+const Logo = styled.div`
   position: absolute;
   left: 50%;
-  top: 2%;
   bottom: 6px;
   width: 103px;
   height: 79px;
@@ -170,25 +159,24 @@ const Logo = styled.h1`
   cursor: pointer;
 `;
 
-const CategoryWrap = styled.div``;
+
 
 const HeaderCategory = styled.ul`
   display: flex;
   padding: 0px;
-
-  height: 56px;
+  height: 33px;
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
   list-style-type: none;
   padding-bottom: 2px;
 
-  & li {
-    padding: 7px 57px 0px 0px;
-    cursor: pointer;
-    font-size: 16px;
-    color: #333;
-    line-height: 20px;
+   & li {
+     padding: 7px 57px 0px 0px;
+     cursor: pointer;
+     font-size: 16px;
+     color: #333;
+     line-height: 20px;
 
     &:hover {
       color: purple;

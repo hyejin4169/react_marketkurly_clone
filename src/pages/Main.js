@@ -51,20 +51,20 @@ const Main = () => {
         <Oneday />
 
         <TitleWrap>
-          <span>후기 10,000개 돌파 상품</span>
+          <span>후기 5개 돌파 상품</span>
           <Icon />
         </TitleWrap>
         <Slide post_list={post_list} />
 
         <TitleWrap>
-          <span>지금 가장 핫한 상품</span>
+          <span>컬리 온리</span>
         </TitleWrap>
         <Slide post_list={post_list} />
 
         <MiddleBanner />
 
         <TitleWrap>
-          <span className="title">공유가 많은 상품 랭킹</span>
+          <span className="title">MD의 추천</span>
         </TitleWrap>
         <Slide post_list={post_list} />
 

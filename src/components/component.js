@@ -1,6 +1,6 @@
 import Header from "./Header";
 import Banner from "./Banner";
-import Product from "./Card";
+import Card from "./Card";
 import MD from "./Md";
 import MiddleBanner from "./MiddleBanner";
 import Oneday from "./Oneday";
@@ -12,7 +12,7 @@ export {
   Header,
   CartItem,
   Banner,
-  Product,
+  Card,
   MD,
   MiddleBanner,
   Oneday,
