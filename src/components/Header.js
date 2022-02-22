@@ -62,31 +62,31 @@ const Header = (props) => {
           </div>
         </LogoWrap>
 
-        <CategoryWrap>
-          <div>
-            <HeaderCategory>
-              <CategoryIcon></CategoryIcon>
-              <li>전체 카테고리</li>
-              <li>신상품</li>
-              <li>베스트</li>
-              <li>알뜰쇼핑 </li>
-              <li> 특가/혜택</li>
-              <SearchWrap>
-                <Search placeholder="검색어를 입력해주세요."></Search>
-                <SearchIcon></SearchIcon>
-              </SearchWrap>
-              <IconWrap>
-                <LocationIcon />
-                <HeartIcon />
-                <CartIcon
-                  onClick={() => {
-                    navigate("/cart");
-                  }}
-                />
-              </IconWrap>
-            </HeaderCategory>
-          </div>
-        </CategoryWrap>
+
+        <div>
+          <HeaderCategory>
+            <CategoryIcon></CategoryIcon>
+            <li>전체 카테고리</li>
+            <li>신상품</li>
+            <li>베스트</li>
+            <li>알뜰쇼핑 </li>
+            <li> 특가/혜택</li>
+            <SearchWrap>
+              <Search placeholder="검색어를 입력해주세요."></Search>
+              <SearchIcon></SearchIcon>
+            </SearchWrap>
+            <IconWrap>
+              <LocationIcon />
+              <HeartIcon />
+              <CartIcon
+                onClick={() => {
+                  navigate("/cart");
+                }}
+              />
+            </IconWrap>
+          </HeaderCategory>
+        </div>
+
       </Grid>
     </React.Fragment>
   );

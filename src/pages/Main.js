@@ -1,8 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-
-import axios from "axios";
 import {
   Banner,
   MD,
@@ -12,23 +9,6 @@ import {
 } from "../components/component";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
-
-
-const Main = (props) => {
-
-  const dispatch = useDispatch();
-  const data = useSelector((state) => state.cart.list)
-
-
-  React.useEffect(() => {
-
-    dispatch(postActions.getPostDB());
-  }, []);
-=======
-
-
-
-
 
 
 //elements
