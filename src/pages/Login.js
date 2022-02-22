@@ -13,11 +13,11 @@ const Login = () => {
   // useState를 이용하여 아이디와 비밀번호의 값을 redux로 보내줄 준비
 
   const changeUsername = (e) => {
-    setUsername(e.target.value);
+    setUsername(e);
   };
 
   const changePassword = (e) => {
-    setPassword(e.target.value);
+    setPassword(e);
   };
 
   const login = () => {
@@ -32,53 +32,40 @@ const Login = () => {
   };
 
   return (
-    <LoginBox>
-      <div>
+    <React.Fragment>
       <h3>로그인</h3>
-      </div>
-      <div>
-      <Input
+      <input
+        value={username}
         placeholder="아이디를 입력해주세요"
         onChange={(e) => {
-          setUsername(e.target.value);
+          changeUsername(e.target.value);
         }}
       />
-      </div>
-
-      <div>
-      <Input
+      <input
+        value={password}
         placeholder="비밀번호를 입력해주세요"
-        type="password"
         onChange={(e) => {
-          setPassword(e.target.value);
+          changePassword(e.target.value);
         }}
       />
-      </div>
-
-      <div>
-      <Input
+      {/* <input
         type="checkbox"
         color="#4f4f4f"
-        bold
+        // bold
         size="13px"
         margin="0 0 0px 6px"
       >
         보안접속
-      </Input>
-      </div>
-
-      <div>
-        <Text color="#4f4f4f" bold size="13px" margin="0">
-        아이디 찾기
-      </Text>
-      <Text color="#4f4f4f" bold size="13px" margin="0 0 0 4px">
-        | 비밀번호 찾기
-      </Text>
-      </div>
-
-      <div><button onClick={login}>로그인</button></div>
-      <div><button>회원가입</button></div>
-    </LoginBox>
+      </input> */}
+      {/* <Text color="#4f4f4f" bold size="13px" margin="0"> */}
+      아이디 찾기
+      {/* </Text>
+      <Text color="#4f4f4f" bold size="13px" margin="0 0 0 4px"> */}
+      | 비밀번호 찾기
+      {/* </Text> */}
+      <button onClick={login}>로그인</button>
+      <button>회원가입</button>
+    </React.Fragment>
   );
 };
 
@@ -93,14 +80,5 @@ const Input = styled.div`
   background: #fff;
   vertical-align: top;
 `;
-
-const Text = styled.div`
-color: black;
-`;
-
-const LoginBox = styled.div`
-color: black;
-`;
-
 
 export default Login;
