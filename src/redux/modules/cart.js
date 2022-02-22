@@ -5,11 +5,13 @@ import axios from "axios";
 // actions
 const ADD_CART = "ADD_CART";
 const GET_CART = "GET_CART";
+const EDIT_CART = "EDIT+CART";
 const DELETE_CART = "DELETE_CART";
 
 // action creators
 const addCart = createAction(ADD_CART, () => ({}));
 const getCart = createAction(GET_CART, () => ({}));
+const editCart = createAction(EDIT_CART, () => ({}));
 const deleteCart = createAction(DELETE_CART, (cartItemId) => ({
   cartItemId,
 }));
@@ -118,8 +120,8 @@ const deleteCartDB = (cartItemId) => {
     //     url: `http://3.34.193.226/api/carts/${cartItemId}`,
     //     headers: {
     //       "content-type": "applicaton/json;charset=UTF-8",
-    //       accept: "application/json",
-    //       Authorization: `Bearer ${token_key}`,
+    //       "accept": "application/json",
+    //       "Authorization": `Bearer ${token_key}`,
     //     },
     //   })
     //     .then((res) => {
@@ -139,6 +141,10 @@ export default handleActions(
         draft.list.unshift();
       }),
     [GET_CART]: (state, action) =>
+      produce(state, (draft) => {
+        draft.list.push();
+      }),
+    [EDIT_CART]: (state, action) =>
       produce(state, (draft) => {
         draft.list.push();
       }),

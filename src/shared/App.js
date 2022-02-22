@@ -1,7 +1,8 @@
 // import logo from "../logo.svg";
 import { Route, Routes } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { actionCreators as userActions } from "../redux/modules/user";
 
 import "../App.css";
 
@@ -14,6 +15,19 @@ import Cart_ from "../pages/Cart";
 
 function App() {
   const dispatch = useDispatch();
+  const token_key = `${localStorage.getItem("token")}`;
+  const islogin = useSelector((state) => state.user.is_login);
+  console.log(islogin);
+
+  useEffect(() => {
+    // if (!islogin) {
+    //   return;
+    // }
+    // if (islogin) {
+    dispatch(userActions.loginCheckDB(token_key));
+    // }
+  }, []);
+
   return (
     <div className="App">
       <Header />
