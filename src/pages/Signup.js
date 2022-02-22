@@ -44,13 +44,17 @@ const Signup = (props) => {
   const usernameCheckF = async () => {
     try {
       let check = await axios.post(
-        "http://3.35.132.95/api/join/nicknameCheck",
-        { username: username }
-      );
-      if (check.data.ok === true) {
+        "http://13.124.130.158/api/user/signup/username",
+        {
+          "username": username,
+        }
+      ).then((res) => {
+        console.log("res다", res)
+      })
+      if (check.data.ok === false) {
         setUsernameCheck(check.data.ok);
         alert(check.data.message);
-      } else if (check.data.ok === false) {
+      } else if (check.data.ok === true) {
         alert(check.data.errorMessage);
       }
     } catch (err) {
@@ -61,13 +65,11 @@ const Signup = (props) => {
   const emailCheckF = async () => {
     if (emailCheck(email)) {
       try {
-        let check = await axios.post("http://3.35.132.95/api/join/emailCheck", {
-          email: email,
-        });
-        if (check.data.ok === true) {
+        let check = await axios.post("http://13.124.130.158/api/user/signup/email");
+        if (check.data.ok === false) {
           setEmailCheck(check.data.ok);
           alert(check.data.message);
-        } else if (check.data.ok === false) {
+        } else if (check.data.ok === true) {
           alert(check.data.errorMessage);
         }
       } catch (err) {
@@ -125,31 +127,41 @@ const Signup = (props) => {
       userActions.signupDB(username, password, passwordCheck, email, nickname)
     );
   };
-
   //나중에 각 항목마다 span태그 해주기
   return (
     <React.Fragment>
       <h3>회원가입</h3>
-      <td>
+
         <span color="red">*</span>필수입력사항
-      </td>
       <line />
       <input
         label="아이디"
         placeholder="6자 이상의 영문 혹은 영문과 숫자를 조합"
-        _onChange={setUsername}
+        onChange={(e) => setUsername(e.target.value)}
       />
-      {username !== "" && !emailCheck(username) && (
+      {(() => { 
+        console.log("username : " , username)
+        console.log("usernameCheck : ", usernameCheck(username))
+        if(username !== "" & !usernameCheck(username)){ 
+          return(
+            <text color="red">아이디 형식이 올바르지 않습니다!</text>
+           ) 
+          }else if(username !== "" & usernameCheck(username)){ 
+            return(
+              <text color="green">사용할 수 있는 아이디 형식입니다!</text>
+             ) } 
+            return null; })()}
+      {/* {username !== "" && !usernameCheck(username) && (
         <text color="red">아이디 형식이 올바르지 않습니다!</text>
       )}
-      {username !== "" && emailCheck(username) && (
+      {username !== "" && usernameCheck(username) && (
         <text color="green">사용할 수 있는 아이디 형식입니다!</text>
-      )}
+      )} */}
       <button
         width="100px"
         margin="0 0 0 10px"
-        _disabled={username_check ? true : false}
-        _onClick={usernameCheckF}
+        disabled={username_check ? true : false}
+        onClick={usernameCheckF}
       >
         중복확인
       </button>
@@ -158,7 +170,7 @@ const Signup = (props) => {
         label="비밀번호"
         placeholder="비밀번호를 입력해주세요"
         type="password"
-        _onChange={(e) => {
+        onChange={(e) => {
           setPassword(e.target.value);
         }}
       />
@@ -175,7 +187,7 @@ const Signup = (props) => {
         label="비밀번호 확인"
         placeholder="비밀번호를 한번 더 입력해주세요"
         type="password"
-        _onChange={(e) => {
+        onChange={(e) => {
           setPasswordCheck(e.target.value);
         }}
       />
@@ -183,7 +195,7 @@ const Signup = (props) => {
       <input
         label="이름"
         placeholder="이름을 입력해주세요"
-        _onClick={(e) => {
+        onClick={(e) => {
           setNickname(e.target.value);
           console.log(e.target.value);
         }}
@@ -192,7 +204,7 @@ const Signup = (props) => {
       <input
         label="이메일"
         placeholder="예: marketkurly@kurly.com"
-        _onChange={checkEmail}
+        onChange={checkEmail}
       />
       {username !== "" && !emailCheck(username) && (
         <td color="red">이메일 형식이 올바르지 않습니다!</td>
@@ -204,13 +216,13 @@ const Signup = (props) => {
         width="100px"
         height="45px"
         margin="0 0 0 10px"
-        _disabled={email_check ? true : false}
-        _onClick={emailCheckF}
+        disabled={email_check ? true : false}
+        onClick={emailCheckF}
       >
         중복확인
       </button>
 
-      <button _onClick={signup}>가입하기</button>
+      <button onClick={signup}>가입하기</button>
     </React.Fragment>
   );
 };

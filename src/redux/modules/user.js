@@ -18,7 +18,7 @@ const initialState = {
 const signupDB = (username, password, passwordCheck, nickname, email) => {
   return async function (dispatch, getState, { history }) {
     try {
-      const signup = await axios.post("http://3.35.132.95/api/user/signup", {
+      const signup = await axios.post("http://13.124.130.158/api/user/signup", {
         username: username,
         password: password,
         passwordCheck: passwordCheck,
@@ -47,7 +47,7 @@ const loginDB = (username, password) => {
   return async function (dispatch, getState, { history }) {
     console.log(history);
     try {
-      const login = await axios.post("http://3.35.132.95/api/user/login", {
+      const login = await axios.post("http://13.124.130.158/user/login", {
         username: username,
         password: password,
       });
@@ -76,7 +76,7 @@ const loginDB = (username, password) => {
 const loginCheckDB = () => {
   return async function (dispatch, getState, { history }) {
     try {
-      const check = await axios.get("http://3.35.132.95/api/auth", {
+      const check = await axios.post("http://13.124.130.158/api/user/islogin", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

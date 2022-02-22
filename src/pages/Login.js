@@ -32,21 +32,30 @@ const Login = () => {
   };
 
   return (
-    <React.Fragment>
+    <LoginBox>
+      <div>
       <h3>로그인</h3>
+      </div>
+      <div>
       <Input
         placeholder="아이디를 입력해주세요"
-        _onChange={(e) => {
-          changeUsername(e.target.value);
+        onChange={(e) => {
+          setUsername(e.target.value);
         }}
       />
+      </div>
+
+      <div>
       <Input
         placeholder="비밀번호를 입력해주세요"
-        _onChange={(e) => {
-          changePassword(e.target.value);
+        type="password"
+        onChange={(e) => {
+          setPassword(e.target.value);
         }}
       />
+      </div>
 
+      <div>
       <Input
         type="checkbox"
         color="#4f4f4f"
@@ -56,16 +65,20 @@ const Login = () => {
       >
         보안접속
       </Input>
-      <Text color="#4f4f4f" bold size="13px" margin="0">
+      </div>
+
+      <div>
+        <Text color="#4f4f4f" bold size="13px" margin="0">
         아이디 찾기
       </Text>
       <Text color="#4f4f4f" bold size="13px" margin="0 0 0 4px">
         | 비밀번호 찾기
       </Text>
+      </div>
 
-      <button onClick={login}>로그인</button>
-      <button>회원가입</button>
-    </React.Fragment>
+      <div><button onClick={login}>로그인</button></div>
+      <div><button>회원가입</button></div>
+    </LoginBox>
   );
 };
 
@@ -80,6 +93,14 @@ const Input = styled.div`
   background: #fff;
   vertical-align: top;
 `;
-const Text = styled.div``;
+
+const Text = styled.div`
+color: black;
+`;
+
+const LoginBox = styled.div`
+color: black;
+`;
+
 
 export default Login;
