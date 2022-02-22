@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
@@ -6,17 +6,20 @@ import { useDispatch } from "react-redux";
 import { actionCreators as cartActions } from "../redux/modules/cart";
 import { CartItem } from "../components/component";
 
-const Cart = (props) => {
+const CartList = (props) => {
   const dispatch = useDispatch();
 
   const cart_list = useSelector((state) => state.cart.list);
+  let now_price = useSelector((state) => state.cart.total_price);
+  const [allSelect, setAllSelect] = useState(true);
+
   const total_quantity = cart_list
     .map((a) => +a.quantity)
     .reduce((a, c) => a + c);
   console.log(total_quantity);
 
   useEffect(() => {
-    dispatch(cartActions.getCartDB());
+    if (cart_list) dispatch(cartActions.getCartDB());
   }, []);
 
   return (
@@ -31,7 +34,13 @@ const Cart = (props) => {
           <ProductWrapper>
             <ProductSummary>
               <label className="check">
-                <input type="checkbox" name="checkAll" />
+                <input
+                  type="checkbox"
+                  name="checkAll"
+                  onClick={() => {
+                    setAllSelect(true);
+                  }}
+                />
                 <span className="ico" />
                 전체선택 (0/{total_quantity})
               </label>
@@ -186,7 +195,7 @@ const Cart = (props) => {
 //   );
 //     })}
 
-export default Cart;
+export default CartList;
 
 const Container = styled.div`
   margin: 0 auto;

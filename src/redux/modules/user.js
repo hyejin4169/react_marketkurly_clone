@@ -108,7 +108,7 @@ const loginDB = (username, password) => {
       console.log(login);
       dispatch(
         setUser({
-          username: username,
+          // username: username,
         })
       );
       localStorage.setItem("token", login.headers.authorization.split(" ")[1]);
@@ -142,7 +142,8 @@ const loginCheckDB = (token_key) => {
       dispatch(
         setUser({
           username: check.data.username,
-          // nickname: check.data.nickname,
+          nickname: check.data.nickname,
+          userid: check.data.id,
         })
       );
       //   dispatch(

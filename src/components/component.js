@@ -6,5 +6,16 @@ import MiddleBanner from "./MiddleBanner";
 import Oneday from "./Oneday";
 import CartItem from "./CartItem";
 import Slide from "./Slide";
+import Modal from "./Modal";
 
-export { Header, CartItem, Banner, Product, MD, MiddleBanner, Oneday, Slide };
+export {
+  Header,
+  CartItem,
+  Banner,
+  Product,
+  MD,
+  MiddleBanner,
+  Oneday,
+  Slide,
+  Modal,
+};

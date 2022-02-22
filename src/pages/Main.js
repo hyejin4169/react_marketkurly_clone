@@ -1,7 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import axios from "axios";
+
+import ModalTwo from "../components/ModalTwo";
 
 import post, { actionCreators as postActions } from "../redux/modules/post";
 
@@ -20,7 +22,9 @@ import images from "../elements/Image";
 const Main = () => {
   const dispatch = useDispatch();
   const post_list = useSelector((state) => state.post.list);
+  const user_id = useSelector((state) => state.user.user?.userid);
   console.log(post_list);
+  console.log(user_id);
 
   useEffect(() => {
     dispatch(postActions.getPostDB());
@@ -30,27 +34,41 @@ const Main = () => {
     <HeaderContainer>
       <Banner images={images}></Banner>
       <Wrap>
+        {/* <button
+          onClick={() => {
+            setModalOpen(true);
+          }}
+        >
+          {modalOpen && <ModalTwo setOpenModal={setModalOpen} />}모달
+        </button> */}
         <TitleWrap>
           <span>이건 어때요?</span>
         </TitleWrap>
-        <Slide></Slide>
-        <MiddleBanner></MiddleBanner>
-        <Oneday></Oneday>
+        <Slide post_list={post_list} />
+
+        <MiddleBanner />
+
+        <Oneday />
+
         <TitleWrap>
           <span>후기 10,000개 돌파 상품</span>
           <Icon />
         </TitleWrap>
-        <Slide></Slide>
+        <Slide post_list={post_list} />
+
         <TitleWrap>
           <span>지금 가장 핫한 상품</span>
         </TitleWrap>
-        <Slide></Slide>
-        <MiddleBanner></MiddleBanner>
+        <Slide post_list={post_list} />
+
+        <MiddleBanner />
+
         <TitleWrap>
           <span className="title">공유가 많은 상품 랭킹</span>
         </TitleWrap>
-        <Slide></Slide>
-        <MD></MD>
+        <Slide post_list={post_list} />
+
+        <MD />
       </Wrap>
     </HeaderContainer>
   );

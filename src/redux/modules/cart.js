@@ -9,9 +9,12 @@ const EDIT_CART = "EDIT+CART";
 const DELETE_CART = "DELETE_CART";
 
 // action creators
-const addCart = createAction(ADD_CART, () => ({}));
-const getCart = createAction(GET_CART, () => ({}));
-const editCart = createAction(EDIT_CART, () => ({}));
+const addCart = createAction(ADD_CART, (cart) => ({ cart }));
+const getCart = createAction(GET_CART, (cart_list) => ({ cart_list }));
+const editCart = createAction(EDIT_CART, (cartId, quantity) => ({
+  cartId,
+  quantity,
+}));
 const deleteCart = createAction(DELETE_CART, (cartItemId) => ({
   cartItemId,
 }));
@@ -19,80 +22,99 @@ const deleteCart = createAction(DELETE_CART, (cartItemId) => ({
 // initial state
 const initialState = {
   list: [
-    {
-      cartItemId: 1,
-      uid: 1,
-      pid: 1,
-      title: "GAP 스위텔 토마토 500g",
-      price: 5900,
-      img: "https://img-cf.kurly.com/shop/data/goods/1590727164974i0.jpg",
-      quantity: 1,
-    },
-    {
-      cartItemId: 2,
-      uid: 1,
-      pid: 2,
-      title: "[고래사어묵] 김치 우동 전골",
-      price: 9900,
-      img: "https://img-cf.kurly.com/shop/data/goods/1634538009994i0.jpg",
-      quantity: 2,
-    },
-    {
-      cartItemId: 3,
-      uid: 1,
-      pid: 3,
-      title: "[썬키스트] 고당도 오렌지 3입 750g (대과)",
-      price: 10600,
-      img: "https://img-cf.kurly.com/shop/data/goods/1463996583774i0.jpg",
-      quantity: 3,
-    },
-    {
-      cartItemId: 4,
-      uid: 1,
-      pid: 4,
-      title: "[창억] 호박인절미",
-      price: 8500,
-      img: "https://img-cf.kurly.com/shop/data/goods/163762991123i0.jpeg",
-      quantity: 4,
-    },
+    // {
+    //   cartItemId: 1,
+    //   uid: 1,
+    //   pid: 1,
+    //   title: "GAP 스위텔 토마토 500g",
+    //   price: 5900,
+    //   img: "https://img-cf.kurly.com/shop/data/goods/1590727164974i0.jpg",
+    //   quantity: 1,
+    // },
+    // {
+    //   cartItemId: 2,
+    //   uid: 1,
+    //   pid: 2,
+    //   title: "[고래사어묵] 김치 우동 전골",
+    //   price: 9900,
+    //   img: "https://img-cf.kurly.com/shop/data/goods/1634538009994i0.jpg",
+    //   quantity: 2,
+    // },
+    // {
+    //   cartItemId: 3,
+    //   uid: 1,
+    //   pid: 3,
+    //   title: "[썬키스트] 고당도 오렌지 3입 750g (대과)",
+    //   price: 10600,
+    //   img: "https://img-cf.kurly.com/shop/data/goods/1463996583774i0.jpg",
+    //   quantity: 3,
+    // },
+    // {
+    //   cartItemId: 4,
+    //   uid: 1,
+    //   pid: 4,
+    //   title: "[창억] 호박인절미",
+    //   price: 8500,
+    //   img: "https://img-cf.kurly.com/shop/data/goods/163762991123i0.jpeg",
+    //   quantity: 4,
+    // },
   ],
+  total_price: 0,
 };
 
 // middlewares
-const getCartDB = (uid) => {
+const getCartDB = () => {
   return function (dispatch, getState, { history }) {
-    // axios({
-    //   method: "post",
-    //   url: "http://3.34.193.226/api/carts",
-    //   headers: {
-    //     "content-type": "applicaton/json;charset=UTF-8",
-    //     accept: "application/json",
-    //     Authorization: `Bearer ${token_key}`,
-    //   },
-    // })
-    //   .then((res) => {
-    //     let list = [];
-    //     console.log("!!!!!CARTLIST 서버에서 가져왔다!!!!!", res.data);
-    //     res.data.forEach((a) => list.push(a));
-    //     dispatch(getCart(list));
-    //   })
-    //   .catch((err) => {
-    //     console.log("!!!!!CARTLIST 조회 error!!!!!", err);
-    //   });
+    const token_key = `${localStorage.getItem("token")}`;
+    const id = getState().user.user?.id;
+    let list = [];
+    console.log(id);
+    axios({
+      method: "get",
+      url: "http://____/api/carts",
+      // data: {
+      //   uid: id,
+      // },
+      headers: {
+        // "content-type": "applicaton/json;charset=UTF-8",
+        // accept: "application/json",
+        Authorization: `Bearer ${token_key}`,
+      },
+    })
+      .then((res) => {
+        console.log("!!!!!CARTLIST 서버에서 가져왔다!!!!!", res.data);
+        dispatch(getCart(res.data));
+        // res.data.forEach((a) => list.push(a));
+        // dispatch(getCart(list));
+      })
+      .catch((err) => {
+        console.log("!!!!!CARTLIST 조회 error!!!!!", err);
+      });
     dispatch(getCart());
   };
 };
 
-const addCartDB = (product_id, count) => {
+const addCartDB = (pid, quantity) => {
   return function (dispatch, getState, { history }) {
-    console.log(product_id, count);
+    const token_key = `${localStorage.getItem("token")}`;
+    console.log(pid, quantity);
     axios
-      .post(`http://localhost:3003/cart/${product_id}`, {
-        counts: count,
-      })
-      .then((response) => {
-        /* dispatch(addCart()) */
-        console.log("카트담기 성공");
+      .post(
+        `http://___/api/carts/${pid}`,
+        {
+          pid: pid,
+          quantity: quantity,
+        },
+        {
+          headers: {
+            Authorization: `${token_key}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        dispatch(addCart(res.data));
+        window.alert("상품을 담으셨습니다!");
       })
       .catch((err) => {
         console.log("카트담기 실패", err);
@@ -100,13 +122,24 @@ const addCartDB = (product_id, count) => {
   };
 };
 
-const editCartCountDB = (productInCartId, count) => {
+const editCartCountDB = (cartItemId, quantity) => {
   return function (dispatch, getState, { history }) {
+    const token_key = `${localStorage.getItem("token")}`;
     axios
-      .put(`http://localhost:3003/cart/${productInCartId}`, {
-        count: count,
+      .put(
+        `http://localhost:3003/api/carts/${cartItemId}`,
+        {
+          quantity: quantity,
+        },
+        {
+          headers: {
+            Authorization: `${token_key}`,
+          },
+        }
+      )
+      .then((res) => {
+        dispatch(editCart(cartItemId, quantity));
       })
-      .then((res) => {})
       .catch((err) => {
         console.log("카운트 변경 실패", err);
       });
@@ -115,21 +148,28 @@ const editCartCountDB = (productInCartId, count) => {
 
 const deleteCartDB = (cartItemId) => {
   return function (dispatch, getState, { history }) {
-    // axios({
-    //     method: "delete",
-    //     url: `http://3.34.193.226/api/carts/${cartItemId}`,
-    //     headers: {
-    //       "content-type": "applicaton/json;charset=UTF-8",
-    //       "accept": "application/json",
-    //       "Authorization": `Bearer ${token_key}`,
-    //     },
-    //   })
-    //     .then((res) => {
-    dispatch(deleteCart(cartItemId));
-    // })
-    // .catch((err) => {
-    //   console.log("!!!!!CARTLIST 조회 error!!!!!", err);
-    // });
+    const token_key = `${localStorage.getItem("token")}`;
+    const _cart_list = getState().cart.list;
+
+    axios({
+      method: "delete",
+      url: `http://____/api/carts/${cartItemId}`,
+      headers: {
+        "content-type": "applicaton/json;charset=UTF-8",
+        accept: "application/json",
+        Authorization: `Bearer ${token_key}`,
+      },
+    })
+      .then((res) => {
+        const idx = _cart_list.findIndex((c) => {
+          return parseInt(c.cartItemId) === parseInt(cartItemId);
+        });
+
+        dispatch(deleteCart(idx));
+      })
+      .catch((err) => {
+        console.log("!!!!!CARTLIST 조회 error!!!!!", err);
+      });
   };
 };
 
@@ -138,15 +178,38 @@ export default handleActions(
   {
     [ADD_CART]: (state, action) =>
       produce(state, (draft) => {
-        draft.list.unshift();
+        let card_data = action.payload.cart;
+
+        draft.list = draft.list.map((c, i) => {
+          console.log(c);
+          if (c.cartItemId === card_data.cartItemId) {
+            let new_quantity = card_data.quantity;
+            return { ...c, quantity: new_quantity };
+          } else {
+            return c;
+          }
+        });
       }),
     [GET_CART]: (state, action) =>
       produce(state, (draft) => {
-        draft.list.push();
+        draft.list.push(...action.payload.cart_list);
+
+        draft.list = draft.list.reduce((acc, cur) => {
+          if (acc.findIndex((a) => a.pid === cur.pid) === -1) {
+            return [...acc, cur];
+          } else {
+            acc[acc.findIndex((a) => a.pid === cur.pid)] = cur;
+            return acc;
+          }
+        }, []);
       }),
     [EDIT_CART]: (state, action) =>
       produce(state, (draft) => {
-        draft.list.push();
+        let idx = draft.list.findIndex(
+          (i) => i.cartItemId === action.payload.cartId
+        );
+
+        draft.list[idx].quantity = action.payload.quantity;
       }),
     [DELETE_CART]: (state, action) =>
       produce(state, (draft) => {

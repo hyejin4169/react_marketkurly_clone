@@ -26,7 +26,6 @@ const getPostDB = () => {
       // },
     })
       .then((res) => {
-        console.log("!!!!!LIST 다 가져왔다!!!!!", res.data);
         dispatch(getPost(res.data));
       })
 
@@ -53,7 +52,6 @@ export default handleActions(
     [GET_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.list.push(...action.payload.list);
-        console.log("성공");
       }),
   },
   initialState
