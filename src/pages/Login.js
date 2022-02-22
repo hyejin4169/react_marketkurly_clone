@@ -80,6 +80,5 @@ const Input = styled.div`
   background: #fff;
   vertical-align: top;
 `;
-const Text = styled.div``;
 
 export default Login;
