@@ -1,42 +1,70 @@
 import React from "react";
 import styled from "styled-components";
 import Cart from '../elements/Cart';
+import { useSelector } from "react-redux";
 
 
-const Product = (props) => {
+const Card = (props) => {
 
+  const data = props.data;
+  const a = props.data.price
 
+  const price = a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 
 
   return (
-
     <ProductContainer>
-      <ProductImgWrap>
-        <img src={props.Img}></img>
-        <Cart></Cart>
-      </ProductImgWrap>
-      <TextWrap>
-        <ProductTitle>{props.Title}</ProductTitle>
-        {/* <CostBox>
-            <ProductPrice>{props.Price} 원</ProductPrice>
-          </CostBox> */}
-        <CostBox>
-          <Sale>{props.Sale}%</Sale>
-          <ProductPrice> 11,858 원</ProductPrice>
-        </CostBox>
-        <SalePrice>{props.Price}원</SalePrice>
-      </TextWrap>
-    </ProductContainer>
 
+      <React.Fragment>
+        <ProductImgWrap>
+          <img src={data.img}></img>
+          <Cart></Cart>
+        </ProductImgWrap>
+
+        {/* {
+            (sale) ?
+          <TextWrap>
+              <ProductTitle>{data.title}</ProductTitle>
+              <CostBox>
+                <ProductPrice>{data.price} 원</ProductPrice>
+              </CostBox>
+              <CostBox>
+                <Sale>{props.Sale}%</Sale>
+                <ProductPrice> 11,858 원</ProductPrice>
+              </CostBox>
+              <SalePrice>{props.Price}원</SalePrice>
+          </TextWrap> 
+          :
+          <TextWrap>
+            <ProductTitle>{data.title}</ProductTitle>
+            <CostBox>
+              <ProductPrice>{data.price} 원</ProductPrice>
+            </CostBox>
+          </TextWrap> 
+
+          } */}
+
+        <TextWrap>
+          <ProductTitle>{data.title}</ProductTitle>
+          <CostBox>
+            <ProductPrice>{price} 원</ProductPrice>
+          </CostBox>
+        </TextWrap>
+
+      </React.Fragment>
+
+
+
+    </ProductContainer>
   );
 };
 
-Product.defaultProps = {
-  Title: "친환경 하우스 딸기 (설향) 500g",
-  Img: "https://img-cf.kurly.com/shop/data/goods/1609229005799l0.jpg",
-  Sale: "23",
-  Price: "15,400"
-}
+// Card.defaultProps = {
+//   Title: "친환경 하우스 딸기 (설향) 500g",
+//   Img: "https://img-cf.kurly.com/shop/data/goods/1609229005799l0.jpg",
+//   Sale: "23",
+//   Price: "15,400"
+// }
 
 const ProductContainer = styled.div`
   /* padding: 32px 0px 40px; */
@@ -154,4 +182,4 @@ const TextWrap = styled.div`
 
 
 
-export default Product;
+export default Card;

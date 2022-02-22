@@ -5,36 +5,27 @@ import axios from "axios";
 const GET_POST = "GET_POST";
 
 
-const getPost = createAction(GET_POST, (post_list) => ({ post_list }))
+const getPost = createAction(GET_POST, (data) => (data))
 
 
 const initialState = {
     list: [],
 }
 
-
 // 미들웨어
 
 // allposts
 const getPostDB = () => {
-    return async function (dispatch, getState, { history }) {
+    return async function (dispatch) {
         axios
-            .get()
+            .get('http://3.38.153.67/api/main')
             .then((res) => {
-                dispatch(getPost(res.data.posts))
+                const data = res.data
+                dispatch(getPost(data))
             })
             .catch((err) => {
                 console.log(err)
             })
-        // try {
-        //     const post_list = await apis.posts();
-        //     console.log(post_list.data.loginUser);
-        //     sessionStorage.setItem("loginUser", post_list.data.loginUser)
-        //     dispatch(getPost(post_list.data.posts));
-        // } catch (err) {
-        //     console.log("오류")
-        // }
-
     }
 
 }
@@ -45,7 +36,7 @@ export default handleActions(
 
         [GET_POST]: (state, action) =>
             produce(state, (draft) => {
-                draft.list.push(...action.payload.post_list);
+                draft.list.push(...action.payload.data);
                 console.log("성공")
             }),
 

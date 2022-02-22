@@ -1,41 +1,44 @@
-@font-face {
-	font-family: 'Noto Sans CJK KR';
-	font-style: normal;
-	font-weight: 100;
-	src: url('../fonts/NotoSansKR-Light.woff2') format('woff2'),
-		url('../fonts/NotoSansKR-Light.woff') format('woff'),
-		url('../fonts/NotoSansKR-Light.otf') format('truetype');
+@import "./css/font.css";
+
+.App {
+  /* text-align: center; */
 }
 
-@font-face {
-	font-family: 'Noto Sans CJK KR';
-	font-style: normal;
-	font-weight: normal;
-	src: url('../fonts/NotoSansKR-Regular.woff2') format('woff2'),
-		url('../fonts/NotoSansKR-Regular.woff') format('woff'),
-		url('../fonts/NotoSansKR-Regular.otf') format('truetype');
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
 }
 
-@font-face {
-	font-family: 'Noto Sans CJK KR';
-	font-style: normal;
-	font-weight: 500;
-	src: url('../fonts/NotoSansKR-Medium.woff2') format('woff2'),
-		url('../fonts/NotoSansKR-Medium.woff') format('woff'),
-		url('../fonts/NotoSansKR-Medium.otf') format('truetype');
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
 }
 
-@font-face {
-	font-family: 'Noto Sans CJK KR';
-	font-style: normal;
-	font-weight: bold;
-	src: url('../fonts/NotoSansKR-Bold.woff2') format('woff2'),
-		url('../fonts/NotoSansKR-Bold.woff') format('woff'),
-		url('../fonts/NotoSansKR-Bold.otf') format('truetype');
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
 
-* {
-	margin: 0;
-	padding: 0;
+.App-link {
+  color: #61dafb;
 }
 
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+html {
+  font-family: sans serif;
+}

@@ -4,7 +4,7 @@ import styled from "styled-components";
 const Cart = () => {
     return (
         <CartIconWrap>
-            <CartIcon></CartIcon>
+            <CartIcon ></CartIcon>
         </CartIconWrap>
     );
 };

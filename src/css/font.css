@@ -1,0 +1,47 @@
+/* dfdf */
+
+@font-face {
+  font-family: nanum gothic;
+  font-style: normal;
+  font-weight: 400;
+  src: local("Nanum Gothic"),
+    url(https://res.kurly.com/fonts/NanumGothic-Regular.woff2) format("woff2"),
+    url(https://res.kurly.com/fonts/NanumGothic-Regular.woff) format("woff"),
+    url(https://res.kurly.com/fonts/NanumGothic-Regular.otf) format("opentype");
+}
+@font-face {
+  font-family: noto sans;
+  font-style: normal;
+  font-weight: 200;
+  src: local("NotoSansKR-Light"),
+    url(https://res.kurly.com/fonts/NotoSansKR-Light.woff2) format("woff2"),
+    url(https://res.kurly.com/fonts/NotoSansKR-Light.woff) format("woff"),
+    url(https://res.kurly.com/fonts/NotoSansKR-Light.otf) format("opentype");
+}
+@font-face {
+  font-family: noto sans;
+  font-style: normal;
+  font-weight: 400;
+  src: local("NotoSansKR-Regular"),
+    url(https://res.kurly.com/fonts/NotoSansKR-Regular.woff2) format("woff2"),
+    url(https://res.kurly.com/fonts/NotoSansKR-Regular.woff) format("woff"),
+    url(https://res.kurly.com/fonts/NotoSansKR-Regular.otf) format("opentype");
+}
+@font-face {
+  font-family: noto sans;
+  font-style: normal;
+  font-weight: 700;
+  src: local("NotoSansKR-Medium"),
+    url(https://res.kurly.com/fonts/NotoSansKR-Medium.woff2) format("woff2"),
+    url(https://res.kurly.com/fonts/NotoSansKR-Medium.woff) format("woff"),
+    url(https://res.kurly.com/fonts/NotoSansKR-Medium.otf) format("opentype");
+}
+@font-face {
+  font-family: noto sans;
+  font-style: normal;
+  font-weight: 800;
+  src: local("NotoSansKR-Bold"),
+    url(https://res.kurly.com/fonts/NotoSansKR-Bold.woff2) format("woff2"),
+    url(https://res.kurly.com/fonts/NotoSansKR-Bold.woff) format("woff"),
+    url(https://res.kurly.com/fonts/NotoSansKR-Bold.otf) format("opentype");
+}
