@@ -119,6 +119,7 @@ const Signup = (props) => {
     //   window.alert("아이디나 이메일의 중복검사가 되지 않았습니다!");
     // }
 
+
     // if (!usernameCheck(username)) {
     //   window.alert("아이디 형식이 맞지 않습니다!");
     //   return;
@@ -248,6 +249,7 @@ const Signup = (props) => {
       </div>
       <button onClick={() => signup()}>가입하기</button>
     </Container>
+
   );
 };
 
@@ -261,3 +263,4 @@ const Container = styled.div`
 `;
 
 export default Signup;
+

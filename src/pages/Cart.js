@@ -199,7 +199,8 @@ const Container = styled.div`
       position: absolute;
       z-index: 299;
       left: 0;
-      top: 21%;
+      top: 17%;
+
       width: 100%;
       height: 9px;
       background: url(https://res.kurly.com/pc/service/common/1902/bg_1x9.png)
@@ -296,7 +297,9 @@ const ProductSummary = styled.div`
 
 const PriceWrapper = styled.div`
   position: relative;
-  top: 68px;
+
+  top: 60px;
+
   display: flex;
   flex-direction: column;
   width: 284px;

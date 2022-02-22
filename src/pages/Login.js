@@ -13,6 +13,7 @@ const Login = () => {
   // useState를 이용하여 아이디와 비밀번호의 값을 redux로 보내줄 준비
 
   const changeUsername = (e) => {
+
     setUsername(e);
   };
 
@@ -81,4 +82,6 @@ const Input = styled.div`
   vertical-align: top;
 `;
 
+
 export default Login;
+

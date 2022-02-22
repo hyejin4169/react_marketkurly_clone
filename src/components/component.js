@@ -8,3 +8,4 @@ import CartItem from "./CartItem";
 import Slide from "./Slide";
 
 export { Header, CartItem, Banner, Product, MD, MiddleBanner, Oneday, Slide };
+

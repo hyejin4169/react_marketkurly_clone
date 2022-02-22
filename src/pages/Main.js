@@ -1,11 +1,8 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+
 import axios from "axios";
-
-import post, { actionCreators as postActions } from "../redux/modules/post";
-
-//components
 import {
   Banner,
   MD,
@@ -13,6 +10,26 @@ import {
   Oneday,
   Slide,
 } from "../components/component";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as postActions } from "../redux/modules/post";
+
+
+const Main = (props) => {
+
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state.cart.list)
+
+
+  React.useEffect(() => {
+
+    dispatch(postActions.getPostDB());
+  }, []);
+=======
+
+
+
+
+
 
 //elements
 import images from "../elements/Image";
@@ -30,24 +47,23 @@ const Main = () => {
     <HeaderContainer>
       <Banner images={images}></Banner>
       <Wrap>
-        <TitleWrap>
-          <span>이건 어때요?</span>
-        </TitleWrap>
+
+        <TitleWrap><span>이 상품 어때요?</span></TitleWrap>
         <Slide></Slide>
         <MiddleBanner></MiddleBanner>
         <Oneday></Oneday>
         <TitleWrap>
-          <span>후기 10,000개 돌파 상품</span>
+          <span>후기 5개 돌파 상품</span>
           <Icon />
         </TitleWrap>
         <Slide></Slide>
         <TitleWrap>
-          <span>지금 가장 핫한 상품</span>
+          <span>컬리 온리</span>
         </TitleWrap>
         <Slide></Slide>
         <MiddleBanner></MiddleBanner>
         <TitleWrap>
-          <span className="title">공유가 많은 상품 랭킹</span>
+          <span className="title">MD의 추천</span>
         </TitleWrap>
         <Slide></Slide>
         <MD></MD>
@@ -92,5 +108,7 @@ const Icon = styled.div`
   height: 32px;
   background: url(https://s3.ap-northeast-2.amazonaws.com/res.kurly.com/kurly/ico/2021/arrow_title_32_32.svg);
 `;
+
+
 
 export default Main;

@@ -10,6 +10,7 @@ const initialState = {
   list: [],
 };
 
+
 // 미들웨어
 
 // allposts
@@ -57,6 +58,7 @@ export default handleActions(
       }),
   },
   initialState
+
 );
 
 const actionCreators = {
