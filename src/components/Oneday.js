@@ -1,9 +1,11 @@
 import React from 'react';
 import styled from "styled-components";
-import Cart from '../elements/Cart';
+import CartIcon from '../elements/CartIcon';
+import { useSelector } from "react-redux";
 
 
 const Oneday = (props) => {
+
     return (
         <Wrap>
 
@@ -16,9 +18,9 @@ const Oneday = (props) => {
                 <Right>
                     <div>
                         <ImgContainer>
-                            <a href='https://www.kurly.com/shop/goods/goods_view.php?&goodsno=66038'>
+                            <a href="#">
                                 <img src={props.Img} />
-                                <Cart></Cart>
+                                <CartIcon></CartIcon>
                             </a>
                         </ImgContainer>
 
@@ -36,9 +38,9 @@ const Oneday = (props) => {
                 <Right>
                     <div>
                         <ImgContainer>
-                            <a href='https://www.kurly.com/shop/goods/goods_view.php?&goodsno=66038'>
+                            <a href="#">
                                 <img src={props.Img} />
-                                <Cart></Cart>
+                                <CartIcon></CartIcon>
                             </a>
                         </ImgContainer>
                         <TextWrap>
@@ -53,6 +55,7 @@ const Oneday = (props) => {
                     </div>
                 </Right>
             </List>
+
 
 
         </Wrap>

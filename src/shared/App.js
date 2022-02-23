@@ -18,6 +18,7 @@ import {
   CartList,
   NotFound,
   CommentWrite,
+  Detail,
 } from "../pages/page";
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/detail/:id" element={<Detail />} />
         <Route path="/cart" element={<CartList />} />
         <Route path="/comment/write/:id" element={<CommentWrite />} />
         <Route path="/*" element={<NotFound />} />

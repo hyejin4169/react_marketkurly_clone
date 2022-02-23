@@ -1,7 +1,5 @@
 import Button from "./Button";
 import Input from "./Input";
-import Image from "./Image";
-import Text from "./Text";
-import LoginBox from "./LoginBox";
+import images from "./Image";
 
-export { Button, Input, Image, Text, LoginBox };
+export { Button, Input, images };

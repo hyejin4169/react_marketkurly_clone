@@ -9,12 +9,9 @@ const EDIT_CART = "EDIT_CART";
 const DELETE_CART = "DELETE_CART";
 
 // action creators
-const addCart = createAction(ADD_CART, (cart) => ({ cart }));
-const getCart = createAction(GET_CART, (cart_list) => ({ cart_list }));
-const editCart = createAction(EDIT_CART, (cartId, quantity) => ({
-  cartId,
-  quantity,
-}));
+const addCart = createAction(ADD_CART, (product_id) => ({ product_id }));
+const getCart = createAction(GET_CART, () => ({}));
+const editCart = createAction(EDIT_CART, () => ({}));
 const deleteCart = createAction(DELETE_CART, (cartItemId) => ({
   cartItemId,
 }));
@@ -59,11 +56,10 @@ const initialState = {
       quantity: 4,
     },
   ],
-  total_price: 0,
 };
 
 // middlewares
-const getCartDB = () => {
+const getCartDB = (uid) => {
   return function (dispatch, getState, { history }) {
     const token_key = `${localStorage.getItem("token")}`;
     const id = getState().user.user;
@@ -112,9 +108,9 @@ const addCartDB = (pid, quantity) => {
         }
       )
       .then((res) => {
-        console.log(res.data);
-        dispatch(addCart(res.data));
-        window.alert("상품을 담으셨습니다!");
+        console.log(res);
+        dispatch(addCart(res));
+        console.log("카트담기 성공");
       })
       .catch((err) => {
         console.log("카트담기 실패", err);
@@ -141,6 +137,7 @@ const editCartDB = (pid, quantity) => {
       .then((res) => {
         dispatch(editCart(pid, quantity));
       })
+      .then((res) => {})
       .catch((err) => {
         console.log("카운트 변경 실패", err);
       });
@@ -182,17 +179,7 @@ export default handleActions(
   {
     [ADD_CART]: (state, action) =>
       produce(state, (draft) => {
-        let card_data = action.payload.cart;
-
-        draft.list = draft.list.map((c, i) => {
-          console.log(c);
-          if (c.cartItemId === card_data.cartItemId) {
-            let new_quantity = card_data.quantity;
-            return { ...c, quantity: new_quantity };
-          } else {
-            return c;
-          }
-        });
+        draft.list.unshift(...action.payload.product_id);
       }),
     [GET_CART]: (state, action) =>
       produce(state, (draft) => {
@@ -209,11 +196,7 @@ export default handleActions(
       }),
     [EDIT_CART]: (state, action) =>
       produce(state, (draft) => {
-        let idx = draft.list.findIndex(
-          (i) => i.cartItemId === action.payload.cartId
-        );
-
-        draft.list[idx].quantity = action.payload.quantity;
+        draft.list.push();
       }),
     [DELETE_CART]: (state, action) =>
       produce(state, (draft) => {

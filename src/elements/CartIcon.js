@@ -1,24 +1,18 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
 import styled from "styled-components";
 
-import { actionCreators as cartActions } from "../redux/modules/cart";
-
-import ModalTwo from "../components/ModalTwo";
-
-const Cart = () => {
-  const dispatch = useDispatch();
-  // const add_cart = () => {dispatch(cartActions.addCartDB(pid, quantity))};
-
-  // const [modalOpen, setModalOpen] = useState(false);
+const CartIcon = (props) => {
+  const { _onClick } = props;
   return (
     <CartIconWrap>
-      <CartIcon
-      // onClick={(add_cart}
-      />
+      <Cart onClick={_onClick}></Cart>
     </CartIconWrap>
   );
 };
+
+CartIcon.defaultProps = {
+  _onClick: () => { },
+}
 
 const CartIconWrap = styled.div`
   position: absolute;
@@ -30,7 +24,7 @@ const CartIconWrap = styled.div`
   height: 45px;
 `;
 
-const CartIcon = styled.button`
+const Cart = styled.button`
   width: 46px;
   height: 46px;
   display: block;
@@ -41,6 +35,7 @@ const CartIcon = styled.button`
   background: url(https://s3.ap-northeast-2.amazonaws.com/res.kurly.com/kurly/ico/2021/cart_white_45_45.svg)
     50% 50% no-repeat;
   cursor: pointer;
+  
 `;
 
-export default Cart;
+export default CartIcon;
