@@ -12,6 +12,7 @@ import { Header } from "../components/component";
 //pages
 import { Main, Login, Signup, Cart, NotFound } from "../pages/page";
 import Cart_ from "../pages/Cart";
+import CommentWrite from "../components/CommentWrite";
 
 function App() {
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/comment" element={<CommentWrite />} />
 
         {/* <Route path="/write" element={<Write />} />
         <Route path="/write/:id" element={<Write />} />
