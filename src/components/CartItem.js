@@ -7,23 +7,20 @@ import { actionCreators as cartActions } from "../redux/modules/cart";
 const CartItem = (props) => {
   const dispatch = useDispatch();
   const cart_list = props;
+  console.log(cart_list);
   // const [count, setCount] = useState(cart_list.quantity);
   const [select, setSelect] = useState(true);
 
   const editCount = (count) => {
     if (count === "plus") {
-      dispatch(
-        cartActions.editCartDB(cart_list.cartItemId, cart_list.quantity + 1)
-      );
+      dispatch(cartActions.editCartDB(cart_list.pid, cart_list.quantity + 1));
     } else if (count === "minus") {
-      dispatch(
-        cartActions.editCartDB(cart_list.cartItemId, cart_list.quantity - 1)
-      );
+      dispatch(cartActions.editCartDB(cart_list.pid, cart_list.quantity - 1));
     }
   };
 
   const deleteItem = () => {
-    dispatch(cartActions.deleteCartDB(cart_list.cartItemId));
+    dispatch(cartActions.deleteCartDB(cart_list.pid));
   };
 
   return (

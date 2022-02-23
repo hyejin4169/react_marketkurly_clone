@@ -43,34 +43,7 @@ const helpComment = createAction(HELP_COMMENT, (commentId, uid) => ({
 // const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
 
 const initialState = {
-  list: [
-    // {
-    //   commentId: 1,
-    //   uid: 19,
-    //   pid: 1,
-    //   product_name: "굿거리 소고기",
-    //   nickname: "르탄이",
-    //   commentTitle: "title",
-    //   comment: "comment",
-    //   helpCount: 3,
-    //   helpList: [{ uid: 5 }, { uid: 6 }, { uid: 8 }],
-    //   createdAt: "2022-02-23",
-    //   img: "https://img-cf.kurly.com/shop/data/goods/1641281818526i0.jpg",
-    // },
-    // {
-    //   commentId: 2,
-    //   uid: 18,
-    //   pid: 2,
-    //   product_name: "된장찌개",
-    //   nickname: "다른이",
-    //   commentTitle: "title",
-    //   comment: "comment",
-    //   helpCount: 5,
-    //   helpList: [{ uid: 5 }, { uid: 6 }, { uid: 8 }, { uid: 15 }, { uid: 19 }],
-    //   createdAt: "2022-02-23",
-    //   img: "https://img-cf.kurly.com/shop/data/goods/1637925168336i0.jpeg",
-    // },
-  ],
+  list: [],
   // is_loading: false,
 };
 
@@ -81,7 +54,7 @@ const helpCommentFB = (commentId, uid) => {
     console.log("uid: ", uid);
     axios
       .post(
-        "http://3.38.153.67/comment/help",
+        "http://175.118.48.164:7050/api/comment/help",
         { commentId: commentId, uid: uid },
         {
           headers: {
@@ -113,12 +86,12 @@ const addCommentFB = (uid, post_id, title, content) => {
       pid: post_id,
       commentTitle: title,
       comment: content,
-      insert_dt: moment().format("YYYY-MM-DD HH:mm:ss"),
+      // insert_dt: moment().format("YYYY-MM-DD HH:mm:ss"),
     };
 
     axios
       .post(
-        "http://3.38.153.67/api/comment/create",
+        "http://175.118.48.164:7050/api/comment/create",
         { ...comment },
         {
           headers: {
@@ -171,17 +144,15 @@ const getCommentFB = (post_id) => {
     if (!post_id) {
       return;
     }
-    dispatch(getComment(post_id));
     axios
-      .get(`http://3.38.153.67/api/comment/${post_id}`)
+      .get(`http://175.118.48.164:7050/api/comment/${post_id}`, {
+        headers: {
+          Authorization: `Bearer ${token_key}`,
+        },
+      })
       .then((res) => {
-        let list = [];
-        res.data.forEach((res) => {
-          list.unshift(res);
-        });
-        console.log("!!!!!COMMENT 불러왔다!!!!!", list);
-
-        dispatch(getComment(post_id, list));
+        console.log("COMMENT DATA: ", res.data);
+        dispatch(getComment(res.data));
       })
       .catch((err) => {
         console.log("댓글 정보를 가져올 수가 없어요! :(");
@@ -192,7 +163,7 @@ const getCommentFB = (post_id) => {
 //EDIT COMMENT FB
 const editCommentFB = (commentId, newComment = {}) => {
   return async function (dispatch, getState) {
-    // const uid = getState().user.user.userid;
+    const uid = getState().user.user.userid;
     const token_key = localStorage.getItem("token");
     // const _img = getState().image.preview;
     const _comment_idx = getState().comment.list.findIndex(
@@ -202,9 +173,9 @@ const editCommentFB = (commentId, newComment = {}) => {
 
     axios({
       method: "put",
-      url: `http://3.38.153.67/api/comment/${commentId}`,
+      url: `http://175.118.48.164:7050/api/comment/${commentId}`,
       data: {
-        uid: 1,
+        uid: uid,
         commentId: commentId,
         // img: _comment.img,
         title: newComment.title,
@@ -227,7 +198,7 @@ const deleteCommentFB = (commentId) => {
     console.log(commentId);
     axios({
       method: "delete",
-      url: `http://3.38.153.67/api/comment/${commentId}`,
+      url: `http://175.118.48.164:7050/api/comment/${commentId}`,
       data: {
         commentId: commentId,
       },
@@ -238,6 +209,7 @@ const deleteCommentFB = (commentId) => {
       .then((res) => {
         dispatch(deleteComment(commentId));
         window.alert("댓글이 삭제되었습니다!");
+        window.location.reload();
       })
       .catch((error) => {
         console.log("axios: comment delete 통신 오류", error);
@@ -282,7 +254,6 @@ export default handleActions(
   {
     [GET_COMMENT]: (state, action) =>
       produce(state, (draft) => {
-        draft.list = [];
         draft.list.push(...action.payload.comment);
         // draft.list[action.payload.pid] = action.payload.comment;
         // draft.list.push(...action.payload.comment);

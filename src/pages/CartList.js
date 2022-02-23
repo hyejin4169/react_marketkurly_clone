@@ -9,27 +9,31 @@ import { CartItem } from "../components/component";
 const CartList = (props) => {
   const dispatch = useDispatch();
   const cart_list = useSelector((state) => state.cart.list);
+  console.log(cart_list);
   const [allSelect, setAllSelect] = useState(true);
 
-  //price part
-  let total_quantity = cart_list.map((a) => a.quantity).reduce((a, c) => a + c);
+  // price part
+  // let total_quantity = cart_list.map((a) => a.quantity).reduce((a, c) => a + c);
 
-  let now_price = cart_list
-    .map((a) => a.price * a.quantity)
-    .reduce((a, c) => a + c);
+  // let now_price = cart_list
+  //   .map((a) => a.price * a.quantity)
+  //   .reduce((a, c) => a + c);
+
+  let now_price = 100;
+  let total_quantity = 5;
 
   let total_price = 0;
   const delivery_fee = 3000;
-  if (now_price < 40000) {
-    total_price = now_price + delivery_fee;
-  } else {
-    total_price = now_price;
-  }
+  // if (now_price < 40000) {
+  //   total_price = now_price + delivery_fee;
+  // } else {
+  //   total_price = now_price;
+  // }
   console.log("총 수량: ", total_quantity);
   console.log("총 가격: ", total_price);
 
   useEffect(() => {
-    if (cart_list) dispatch(cartActions.getCartDB());
+    dispatch(cartActions.getCartDB());
   }, []);
 
   return (

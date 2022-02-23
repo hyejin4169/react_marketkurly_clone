@@ -10,6 +10,7 @@ import Kurlyonly from "./Kurlyonly";
 import Sale from "./Sale";
 import Recommend from "./Recommend.js";
 import CommentBox from "./CommentBox";
+import CommentList from "./CommentList";
 
 export {
   Header,
@@ -24,4 +25,5 @@ export {
   Sale,
   Recommend,
   CommentBox,
+  CommentList,
 };

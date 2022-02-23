@@ -9,74 +9,40 @@ const EDIT_CART = "EDIT_CART";
 const DELETE_CART = "DELETE_CART";
 
 // action creators
-const addCart = createAction(ADD_CART, (product_id) => ({ product_id }));
-const getCart = createAction(GET_CART, () => ({}));
-const editCart = createAction(EDIT_CART, () => ({}));
-const deleteCart = createAction(DELETE_CART, (cartItemId) => ({
-  cartItemId,
+const addCart = createAction(ADD_CART, (cart_data) => ({ cart_data }));
+const getCart = createAction(GET_CART, (list) => ({ list }));
+const editCart = createAction(EDIT_CART, (pid, quantity) => ({
+  pid,
+  quantity,
+}));
+const deleteCart = createAction(DELETE_CART, (pid) => ({
+  pid,
 }));
 
 // initial state
 const initialState = {
-  list: [
-    {
-      cartItemId: 1,
-      uid: 1,
-      pid: 1,
-      title: "GAP 스위텔 토마토 500g",
-      price: 5900,
-      img: "https://img-cf.kurly.com/shop/data/goods/1590727164974i0.jpg",
-      quantity: 1,
-    },
-    {
-      cartItemId: 2,
-      uid: 1,
-      pid: 2,
-      title: "[고래사어묵] 김치 우동 전골",
-      price: 9900,
-      img: "https://img-cf.kurly.com/shop/data/goods/1634538009994i0.jpg",
-      quantity: 2,
-    },
-    {
-      cartItemId: 3,
-      uid: 1,
-      pid: 3,
-      title: "[썬키스트] 고당도 오렌지 3입 750g (대과)",
-      price: 10600,
-      img: "https://img-cf.kurly.com/shop/data/goods/1463996583774i0.jpg",
-      quantity: 3,
-    },
-    {
-      cartItemId: 4,
-      uid: 1,
-      pid: 4,
-      title: "[창억] 호박인절미",
-      price: 8500,
-      img: "https://img-cf.kurly.com/shop/data/goods/163762991123i0.jpeg",
-      quantity: 4,
-    },
-  ],
+  list: [],
 };
 
 // middlewares
-const getCartDB = (uid) => {
+const getCartDB = () => {
   return function (dispatch, getState, { history }) {
     const token_key = `${localStorage.getItem("token")}`;
     const id = getState().user.user;
     let list = [];
     console.log(id);
-    axios({
-      method: "get",
-      url: "http://3.38.153.67/api/carts",
-      // data: {
-      //   uid: id,
-      // },
-      headers: {
-        // "content-type": "applicaton/json;charset=UTF-8",
-        // accept: "application/json",
-        Authorization: `Bearer ${token_key}`,
-      },
-    })
+    axios
+      .get(
+        "http://175.118.48.164:7050/api/carts",
+
+        {
+          headers: {
+            // "content-type": "applicaton/json;charset=UTF-8",
+            // accept: "application/json",
+            Authorization: `Bearer ${token_key}`,
+          },
+        }
+      )
       .then((res) => {
         console.log("!!!!!CARTLIST 서버에서 가져왔다!!!!!", res.data);
         dispatch(getCart(res.data));
@@ -86,7 +52,22 @@ const getCartDB = (uid) => {
       .catch((err) => {
         console.log("!!!!!CARTLIST 조회 error!!!!!", err);
       });
-    dispatch(getCart());
+
+    // ({
+    //   method: "get",
+    //   url: "http://3.38.153.67/api/carts",
+    //   data: {},
+    //   // data: {
+    //   //   uid: id,
+    //   // },
+    //   headers: {
+    //     // "content-type": "applicaton/json;charset=UTF-8",
+    //     // accept: "application/json",
+    //     Authorization: `Bearer ${token_key}`,
+    //   },
+    // })
+
+    // dispatch(getCart());
   };
 };
 
@@ -94,23 +75,26 @@ const addCartDB = (pid, quantity) => {
   return function (dispatch, getState, { history }) {
     const token_key = `${localStorage.getItem("token")}`;
     console.log(pid, quantity);
+    console.log(token_key);
     axios
       .post(
-        `http://3.38.153.67/api/carts/${pid}`,
+        `http://175.118.48.164:7050/api/carts/${pid}`,
         {
           pid: pid,
           quantity: quantity,
         },
         {
           headers: {
-            Authorization: `${token_key}`,
+            Authorization: `Bearer ${token_key}`,
           },
         }
       )
       .then((res) => {
-        console.log(res);
-        dispatch(addCart(res));
-        console.log("카트담기 성공");
+        console.log(res.data);
+        dispatch(addCart(res.data));
+        alert("장바구니에 물품을 담으셨습니다!");
+        // window.location.replace("/cart");
+        // console.log("카트담기 성공");
       })
       .catch((err) => {
         console.log("카트담기 실패", err);
@@ -123,21 +107,22 @@ const editCartDB = (pid, quantity) => {
     const token_key = `${localStorage.getItem("token")}`;
     axios
       .put(
-        `http://3.38.153.67/api/carts/${pid}`,
+        `http://175.118.48.164:7050/api/carts/${pid}`,
         {
           pid: pid,
           quantity: quantity,
         },
         {
           headers: {
-            Authorization: `${token_key}`,
+            // "content-type": "applicaton/json;charset=UTF-8",
+            // accept: "application/json",
+            Authorization: `Bearer ${token_key}`,
           },
         }
       )
       .then((res) => {
         dispatch(editCart(pid, quantity));
       })
-      .then((res) => {})
       .catch((err) => {
         console.log("카운트 변경 실패", err);
       });
@@ -148,16 +133,16 @@ const deleteCartDB = (pid) => {
   return function (dispatch, getState, { history }) {
     const token_key = `${localStorage.getItem("token")}`;
     const _cart_list = getState().cart.list;
-
+    console.log(_cart_list);
     axios({
       method: "delete",
-      url: `http://3.38.153.67/api/carts/${pid}`,
+      url: `http://175.118.48.164:7050/api/carts/${pid}`,
       data: {
         pid: pid,
       },
       headers: {
-        "content-type": "applicaton/json;charset=UTF-8",
-        accept: "application/json",
+        // "content-type": "applicaton/json;charset=UTF-8",
+        // accept: "application/json",
         Authorization: `Bearer ${token_key}`,
       },
     })
@@ -179,24 +164,36 @@ export default handleActions(
   {
     [ADD_CART]: (state, action) =>
       produce(state, (draft) => {
-        draft.list.unshift(...action.payload.product_id);
+        // draft.list.unshift(...action.payload.cart_data);
+        let _cart_data = action.payload.cart_data;
+
+        draft.list = draft.list.map((c, i) => {
+          if (c.pid === _cart_data.pid) {
+            let new_quantity = _cart_data.quantity;
+            return { ...c, quantity: new_quantity };
+          } else {
+            return c;
+          }
+        });
       }),
     [GET_CART]: (state, action) =>
       produce(state, (draft) => {
-        // draft.list.push(...action.payload.cart_list);
+        draft.list.push(...action.payload.list);
 
-        draft.list = draft.list.reduce((acc, cur) => {
-          if (acc.findIndex((a) => a.pid === cur.pid) === -1) {
-            return [...acc, cur];
-          } else {
-            acc[acc.findIndex((a) => a.pid === cur.pid)] = cur;
-            return acc;
-          }
-        }, []);
+        // //중복 검사
+        // draft.list = draft.list.reduce((acc, cur) => {
+        //   if (acc.findIndex((a) => a.pid === cur.pid) === -1) {
+        //     return [...acc, cur];
+        //   } else {
+        //     acc[acc.findIndex((a) => a.pid === cur.pid)] = cur;
+        //     return acc;
+        //   }
+        // }, []);
       }),
     [EDIT_CART]: (state, action) =>
       produce(state, (draft) => {
-        draft.list.push();
+        let idx = draft.list.findIndex((v) => v.pid === action.payload.pid);
+        draft.list[idx].quantity = action.payload.quantity;
       }),
     [DELETE_CART]: (state, action) =>
       produce(state, (draft) => {

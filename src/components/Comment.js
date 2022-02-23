@@ -7,9 +7,7 @@ import { actionCreators as commentActions } from "../redux/modules/comment";
 
 const Comment = (props) => {
   const dispatch = useDispatch();
-  const userId = useSelector((state) => state.user.user?.userid);
-  // console.log(userId);
-  console.log(props);
+  const userId = useSelector((state) => state.user.user?.uid);
 
   const [clickComment, setClickComment] = useState(false);
 
@@ -22,7 +20,7 @@ const Comment = (props) => {
       alert("로그인부터 부탁드려요!");
       window.location.replace("/login");
     }
-    // dispatch(commentActions.)
+    dispatch(commentActions.helpCommentFB(props.commentId, userId));
   };
   return (
     <>
@@ -88,7 +86,7 @@ const Comment = (props) => {
             textAlign: "center",
           }}
         >
-          123
+          0
         </CommentData>
       </OneComment>
       {clickComment && (

@@ -34,7 +34,7 @@ const getPostDB = () => {
       // },
     })
       .then((res) => {
-        console.log("!!!!!LIST 다 가져왔다!!!!!");
+        // console.log("!!!!!LIST 다 가져왔다!!!!!");
 
         const banner_list = res.data.banner_list;
         const kurlyonly_list = res.data.kurlyonly_list;
@@ -55,17 +55,17 @@ const getPostDB = () => {
 
 const detailPostDB = (pid) => {
   return async function (dispatch, getState, { history }) {
-    console.log(pid);
+    // console.log(pid);
 
     axios({
       method: "get",
       url: `http://3.38.153.67/api/products/${pid}`,
     })
       .then((res) => {
-        console.log("!!!!!상세페이지 다 가져왔다!!!!!", res.data.product);
+        // console.log("!!!!!상세페이지 다 가져왔다!!!!!", res.data.product);
         const detail_list = res.data.product;
 
-        console.log(detail_list);
+        // console.log(detail_list);
         dispatch(detailPost(detail_list));
       })
       .catch((err) => {
@@ -77,13 +77,13 @@ const detailPostDB = (pid) => {
 const getMdPostDB = (no) => {
   return async function (dispatch, getState) {
     const num = parseInt(no);
-    console.log(num);
+    // console.log(num);
     axios({
       method: "get",
       url: `http://3.38.153.67/api/main/md/${num}`,
     })
       .then((res) => {
-        console.log("!!!MD_LIST 가져왔다!!!!!", res.data);
+        // console.log("!!!MD_LIST 가져왔다!!!!!", res.data);
         const md_list = res.data;
         const md_category = [];
 
@@ -103,13 +103,13 @@ export default handleActions(
     [GET_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.list.push(...action.payload.list);
-        console.log("성공");
+        // console.log("성공");
       }),
 
     [MD_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.md_list.push(...action.payload.md_list);
-        console.log("성공");
+        // console.log("성공");
       }),
 
     [MD_POST]: (state = initialState, action = {}) => {
@@ -119,7 +119,7 @@ export default handleActions(
     [DETAIL_POST]: (state, action) =>
       produce(state, (draft) => {
         draft.detail_list = action.payload.detail_list;
-        console.log("성공");
+        // console.log("성공");
       }),
 
     // [DETAIL_POST]: (state = initialState, action = {}) => {

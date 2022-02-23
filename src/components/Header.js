@@ -1,11 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
+import { actionCreators as userActions } from "../redux/modules/user";
 
 const Header = (props) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const islogin = useSelector((state) => state.user.is_login);
+  const logout = () => {
+    dispatch(userActions.outUser());
+    alert("로그아웃 되셨습니다!");
+    navigate("/");
+  };
 
   return (
     <React.Fragment>
@@ -34,13 +42,7 @@ const Header = (props) => {
             )}
             {islogin && (
               <>
-                <li
-                  onClick={() => {
-                    navigate("/login");
-                  }}
-                >
-                  로그아웃
-                </li>
+                <li onClick={logout}>로그아웃</li>
               </>
             )}
             <li>고객센터 ▼</li>
@@ -61,7 +63,6 @@ const Header = (props) => {
             />
           </div>
         </LogoWrap>
-
 
         <div>
           <HeaderCategory>
@@ -87,7 +88,6 @@ const Header = (props) => {
             </IconWrap>
           </HeaderCategory>
         </div>
-
       </Grid>
     </React.Fragment>
   );
@@ -136,15 +136,14 @@ const DeliveryIcon = styled.span`
     no-repeat;
   background-size: cover;
 
-  left : 0;
-`
+  left: 0;
+`;
 
 const LogoWrap = styled.div`
-    position: relative;
-    height: 63px;
-    margin: 0 auto;
-   
-`
+  position: relative;
+  height: 63px;
+  margin: 0 auto;
+`;
 
 const Logo = styled.div`
   position: absolute;
@@ -160,8 +159,6 @@ const Logo = styled.div`
   cursor: pointer;
 `;
 
-
-
 const HeaderCategory = styled.ul`
   display: flex;
   padding: 0px;
@@ -172,12 +169,12 @@ const HeaderCategory = styled.ul`
   list-style-type: none;
   padding-bottom: 2px;
 
-   & li {
-     padding: 7px 57px 0px 0px;
-     cursor: pointer;
-     font-size: 16px;
-     color: #333;
-     line-height: 20px;
+  & li {
+    padding: 7px 57px 0px 0px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+    line-height: 20px;
 
     &:hover {
       color: purple;
@@ -211,7 +208,7 @@ const IconWrap = styled.div`
   margin-left: 5px;
 `;
 const CartIcon = styled.div`
-  position:relative;
+  position: relative;
   width: 36px;
   height: 36px;
   background-image: url(https://res.kurly.com/pc/service/common/2011/ico_cart.svg);
@@ -221,7 +218,7 @@ const CartIcon = styled.div`
 `;
 
 const Count = styled.span`
-    /* position: absolute;
+  /* position: absolute;
     left: 19px;
     top: -1px;
     min-width: 20px;
@@ -235,9 +232,7 @@ const Count = styled.span`
     line-height: 15px;
     text-align: center;
     white-space: nowrap; */
-
-
-`
+`;
 
 const LocationIcon = styled.div`
   width: 36px;

@@ -9,18 +9,27 @@ import { useNavigate } from "react-router-dom";
 const CommentList = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { comment_list } = props;
-  // const comment_list = useSelector((state) => state.comment.list);
+  const { pid } = props;
+  const comment_list = useSelector((state) => state.comment.list);
+  console.log(comment_list);
+  const comment_test = useSelector((state) => state.comment);
+  console.log(comment_test);
+
   const islogin = useSelector((state) => state.user.is_login);
 
   useEffect(() => {
-    dispatch(commentActions.getCommentFB(props.pid));
+    dispatch(commentActions.getCommentFB(pid));
   }, []);
 
   return (
     <>
       <CommentListWrap>
-        <CommentBanner>후기 ({comment_list.length})</CommentBanner>
+        {comment_list ? (
+          <CommentBanner>후기 ({comment_list.length}) </CommentBanner>
+        ) : (
+          <CommentBanner>후기 (0)</CommentBanner>
+        )}
+
         <CommentListTitle>PRODUCT REVIEW</CommentListTitle>
         <CommentListInfo>
           <li>
@@ -116,7 +125,7 @@ const CommentList = (props) => {
             {islogin ? (
               <ReviewButton
                 onClick={() => {
-                  navigate(`/comment/write/${props.product_id}`);
+                  navigate(`/comment/write/${pid}`);
                 }}
               >
                 후기쓰기

@@ -19,9 +19,9 @@ import images from "../elements/Image";
 const Main = (props) => {
   const dispatch = useDispatch();
   const all_list = useSelector((state) => state.post.list);
-  const user_id = useSelector((state) => state.user.user?.userid);
+  const user_info = useSelector((state) => state.user);
   console.log(all_list);
-  console.log("uid: ", user_id);
+  console.log("user_info: ", user_info);
 
   useEffect(() => {
     dispatch(postActions.getPostDB());

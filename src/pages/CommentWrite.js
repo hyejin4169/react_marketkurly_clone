@@ -13,7 +13,9 @@ const CommentWrite = (props) => {
   const dispatch = useDispatch();
   const params = useParams();
   const productId = params.id;
-  const userId = useState((state) => state.user.userid);
+  const userId = useSelector((state) => state.user.user?.uid);
+  console.log("uid: ", userId);
+  console.log("pid: ", productId);
 
   const [fileName, setFileName] = React.useState("선택한 파일이 없습니다");
   const fileInput = React.useRef();
@@ -56,13 +58,6 @@ const CommentWrite = (props) => {
     );
   };
 
-  const comment_list = useSelector((state) => state.comment.list);
-  console.log(comment_list);
-
-  useEffect(() => {
-    dispatch(commentActions.getCommentFB());
-  }, []);
-
   return (
     <CommentWriteWrap>
       <div>
@@ -104,8 +99,6 @@ const CommentWrite = (props) => {
       <div>
         <button onClick={addcomment}>작성하기</button>
       </div>
-
-      <CommentList comment_list={comment_list} />
     </CommentWriteWrap>
   );
 };
