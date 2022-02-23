@@ -11,15 +11,13 @@ import "../App.css";
 import { Header } from "../components/component";
 
 //pages
-import { Main, Login, Signup, CartList, NotFound } from "../pages/page";
-
-import CommentWrite from "../components/CommentWrite";
+import { Main, Login, Signup, Cart, NotFound, Detail, CartList } from "../pages/page";
 
 function App() {
   const dispatch = useDispatch();
   const token_key = `${localStorage.getItem("token")}`;
   const islogin = useSelector((state) => state.user.is_login);
-  console.log("islogin 값: ", islogin);
+  console.log(islogin);
 
   useEffect(() => {
     // if (!islogin) {
@@ -37,7 +35,7 @@ function App() {
         <Route path="/" element={<Main />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/comment" element={<CommentWrite />} />
+        <Route path="/detail/:id" element={<Detail />} />
         <Route path="/cart" element={<CartList />} />
 
         {/* <Route path="/write" element={<Write />} />

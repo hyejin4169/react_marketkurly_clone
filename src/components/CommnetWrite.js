@@ -3,64 +3,64 @@ import styled from "styled-components";
 import { Input, Text } from "../elements/element";
 
 const CommentWrite = () => {
-  return (
-    <React.Fragment>
-      <CommentContainer>
-      <ReviewTitle>후기 작성</ReviewTitle>
-      <Info>작성 시 유의 사항</Info>
-      <Line />
-      <ProductImg>
-        <img src="http://img-cf.kurly.com/shop/data/goods/1637148022391s0.jpg" />
-      </ProductImg>
-      <ProductDesc>[KF365] 한돈 삼겹 대패 600g (냉동)</ProductDesc>
-      <CommentTitleWrap>
-        <CommentTitle style={{ height: "50px" }}>제목</CommentTitle>
-        <CommentTitleBorder1>
-          <CommentTitleInput placeholder="제목을 입력해주세요." />
-        </CommentTitleBorder1>
-      </CommentTitleWrap>
+    return (
+        <React.Fragment>
+            <CommentContainer>
+                <ReviewTitle>후기 작성</ReviewTitle>
+                <Info>작성 시 유의 사항</Info>
+                <Line />
+                <ProductImg>
+                    <img src="http://img-cf.kurly.com/shop/data/goods/1637148022391s0.jpg" />
+                </ProductImg>
+                <ProductDesc>[KF365] 한돈 삼겹 대패 600g (냉동)</ProductDesc>
+                <CommentTitleWrap>
+                    <CommentTitle style={{ height: "50px" }}>제목</CommentTitle>
+                    <CommentTitleBorder1>
+                        <CommentTitleInput placeholder="제목을 입력해주세요." />
+                    </CommentTitleBorder1>
+                </CommentTitleWrap>
 
-      <CommentTextWrap>
-        <CommentTextTitle style={{ height: "272px" }}>
-          후기작성
-        </CommentTextTitle>
-        <CommentTitleBorder2>
-          <CommentTextInput
-            placeholder="자세한 후기는 다른 고객의 구매에 많은 도움이 되며,
+                <CommentTextWrap>
+                    <CommentTextTitle style={{ height: "272px" }}>
+                        후기작성
+                    </CommentTextTitle>
+                    <CommentTitleBorder2>
+                        <CommentTextInput
+                            placeholder="자세한 후기는 다른 고객의 구매에 많은 도움이 되며,
           일반식품의 효능이나 효과 등에 오해의 소지가 있는 내용을 작성 시 검토 후 비공개 조치될 수 있습니다. 
           반품/환불 문의는 1:1문의로 가능합니다."
-          />
-        </CommentTitleBorder2>
-        <CommentTitleBorder3 />
-      </CommentTextWrap>
+                        />
+                    </CommentTitleBorder2>
+                    <CommentTitleBorder3 />
+                </CommentTextWrap>
 
-      <CommentPhotoWrap>
-        <CommentPhotoTitle style={{ height: "150px" }}>
-          사진등록
-        </CommentPhotoTitle>
-        <PhotoUpload>
-          {/* <input className="fileInput" type="file" accept="image/" /> */}
-          <input type="file" name="file[]" class="file_upload" accept="image/x-png,image/gif,image/jpeg"></input>
-        </PhotoUpload>
-        <PhotoDesc>
-          구매한 상품이 아니거나 캡쳐 사진을 첨부할 경우, 통보없이 삭제 및 적립
-          헤택이 취소됩니다.
-        </PhotoDesc>
-        <CommentTitleBorder4 />
-      </CommentPhotoWrap>
+                <CommentPhotoWrap>
+                    <CommentPhotoTitle style={{ height: "150px" }}>
+                        사진등록
+                    </CommentPhotoTitle>
+                    <PhotoUpload>
+                        {/* <input className="fileInput" type="file" accept="image/" /> */}
+                        <input type="file" name="file[]" class="file_upload" accept="image/x-png,image/gif,image/jpeg"></input>
+                    </PhotoUpload>
+                    <PhotoDesc>
+                        구매한 상품이 아니거나 캡쳐 사진을 첨부할 경우, 통보없이 삭제 및 적립
+                        헤택이 취소됩니다.
+                    </PhotoDesc>
+                    <CommentTitleBorder4 />
+                </CommentPhotoWrap>
 
-      <Issue>
-        혹시 상품에 문제가 있으셨나요?
-        <IssueSpan>1:1 문의하기</IssueSpan>
-      </Issue>
+                <Issue>
+                    혹시 상품에 문제가 있으셨나요?
+                    <IssueSpan>1:1 문의하기</IssueSpan>
+                </Issue>
 
-        <Button>
-        <Text color="#ffffff" size="16.5px" margin="1px 0 0 0">등록하기</Text>
-        </Button>
+                <Button>
+                    <Text color="#ffffff" size="16.5px" margin="1px 0 0 0">등록하기</Text>
+                </Button>
 
-      </CommentContainer>
-    </React.Fragment>
-  );
+            </CommentContainer>
+        </React.Fragment>
+    );
 };
 
 const ReviewTitle = styled.div`

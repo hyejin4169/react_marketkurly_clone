@@ -86,8 +86,8 @@ const signupDB = (username, password, passwordCheck, email, nickname) => {
       console.log(signup);
 
       if (signup.data.result === true) {
-        window.alert("성공적으로 회원가입하셨습니다!");
-        window.location.replace("/login");
+        // window.alert("성공적으로 회원가입하셨습니다!");
+        // window.location.replace("/login");
         //회원가입 완료 시 login 페이지로 이동
       } else if (signup.data.result === false) {
         window.alert(signup.data.errorMessage);
@@ -115,12 +115,12 @@ const loginDB = (username, password) => {
 
       dispatch(
         setUser({
-          // username: username,
+          username: username,
         })
       );
       localStorage.setItem("token", login.headers.authorization.split(" ")[1]);
-      window.alert("로그인 되었습니다!");
-      window.location.replace("/");
+      // window.alert("로그인 되었습니다!");
+      // window.location.replace("/");
 
       // 로그인 성공 시 메인으로 이동
 
@@ -150,8 +150,7 @@ const loginCheckDB = (token_key) => {
       dispatch(
         setUser({
           username: check.data.username,
-          nickname: check.data.nickname,
-          userid: check.data.id,
+          // nickname: check.data.nickname,
         })
       );
       //   dispatch(

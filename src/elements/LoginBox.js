@@ -3,17 +3,17 @@ import styled from "styled-components"
 import { Text } from "../elements/element";
 
 const LoginBox = (props) => {
-    const {placeholder, margin, type, _onChange} = props;
+    const { placeholder, margin, type, _onChange } = props;
 
     const styles = {
-       margin: margin,
+        margin: margin,
     };
 
     return (
         <React.Fragment>
-            
+
             <ElLoginBox {...styles} onChange={_onChange} type={type} placeholder={placeholder}></ElLoginBox>
-            
+
         </React.Fragment>
     )
 }
@@ -21,8 +21,8 @@ const LoginBox = (props) => {
 LoginBox.defaultProps = {
     margin: false,
     placeholder: '텍스트를 입력해주세요.',
-    type : false,
-    _onChange : () => {}
+    type: false,
+    _onChange: () => { }
 }
 
 const ElLoginBox = styled.input`

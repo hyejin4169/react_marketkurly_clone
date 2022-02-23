@@ -1,22 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { actionCreators as userActions } from "../redux/modules/user";
+import { useSelector } from "react-redux";
 
 const Header = (props) => {
-  const token = localStorage.getItem('token');
   const navigate = useNavigate();
   const islogin = useSelector((state) => state.user.is_login);
-  const dispatch = useDispatch();
-
-  const logout = () => {
-    dispatch(userActions.outUser());
-    navigate('/')
-    // setOutBox(false)
-  }
-
-  // const [out_box, setOutBox] = React.useState(false);
 
   return (
     <React.Fragment>
@@ -46,7 +35,9 @@ const Header = (props) => {
             {islogin && (
               <>
                 <li
-                  onClick={logout}
+                  onClick={() => {
+                    navigate("/login");
+                  }}
                 >
                   로그아웃
                 </li>

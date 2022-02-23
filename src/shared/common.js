@@ -5,9 +5,10 @@ export const usernameCheck = (username) => {
   return _reg.test(username);
 };
 
-//비번: 10자 이상, 최소 하나의 문자, 하나의 숫자 및 하나의 특수 문자
+//비번: 4-8 자, 최소 하나의 문자, 하나의 숫자 및 하나의 특수 문자
 export const pwdCheck = (pwd) => {
-  let _reg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{10,}$/;
+  let _reg = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{4,8}$/;
+
   return _reg.test(pwd);
 };
 

@@ -1,15 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import AllList from "../components/AllList";
 import {
   Banner,
   MD,
   MiddleBanner,
   Oneday,
+  Slide,
   Kurlyonly,
   Sale,
-  AllList
 } from "../components/component";
+import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
 
 //elements
@@ -21,10 +22,6 @@ const Main = (props) => {
   const all_list = useSelector((state) => state.post.list)
   console.log(all_list)
 
-  const post_list = useSelector((state) => state.post.list);
-  const user_id = useSelector((state) => state.user.user?.userid);
-  console.log(post_list);
-  console.log(user_id);
 
   useEffect(() => {
     dispatch(postActions.getPostDB());

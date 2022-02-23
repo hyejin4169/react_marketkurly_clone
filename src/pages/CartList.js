@@ -7,150 +7,150 @@ import { actionCreators as cartActions } from "../redux/modules/cart";
 import { CartItem } from "../components/component";
 
 const CartList = (props) => {
-  const dispatch = useDispatch();
+    const dispatch = useDispatch();
 
-  const cart_list = useSelector((state) => state.cart.list);
-  let now_price = useSelector((state) => state.cart.total_price);
-  const [allSelect, setAllSelect] = useState(true);
+    const cart_list = useSelector((state) => state.cart.list);
+    let now_price = useSelector((state) => state.cart.total_price);
+    const [allSelect, setAllSelect] = useState(true);
 
-  const total_quantity = cart_list
-    .map((a) => +a.quantity)
-    .reduce((a, c) => a + c);
-  console.log(total_quantity);
+    const total_quantity = cart_list
+        .map((a) => +a.quantity)
+        .reduce((a, c) => a + c);
+    console.log(total_quantity);
 
-  useEffect(() => {
-    if (cart_list) dispatch(cartActions.getCartDB());
-  }, []);
+    useEffect(() => {
+        if (cart_list) dispatch(cartActions.getCartDB());
+    }, []);
 
-  return (
-    <>
-      {/* {is_loaded && ( */}
-      <Container>
-        <div className="title">
-          <h2>장바구니</h2>
-        </div>
+    return (
+        <>
+            {/* {is_loaded && ( */}
+            <Container>
+                <div className="title">
+                    <h2>장바구니</h2>
+                </div>
 
-        <InfoWrapper>
-          <ProductWrapper>
-            <ProductSummary>
-              <label className="check">
-                <input
-                  type="checkbox"
-                  name="checkAll"
-                  onClick={() => {
-                    setAllSelect(true);
-                  }}
-                />
-                <span className="ico" />
-                전체선택 (0/{total_quantity})
-              </label>
+                <InfoWrapper>
+                    <ProductWrapper>
+                        <ProductSummary>
+                            <label className="check">
+                                <input
+                                    type="checkbox"
+                                    name="checkAll"
+                                    onClick={() => {
+                                        setAllSelect(true);
+                                    }}
+                                />
+                                <span className="ico" />
+                                전체선택 (0/{total_quantity})
+                            </label>
 
-              {/* {products.length} */}
-              <a href="#none" className="select-delete">
-                선택삭제
-              </a>
-            </ProductSummary>
+                            {/* {products.length} */}
+                            <a href="#none" className="select-delete">
+                                선택삭제
+                            </a>
+                        </ProductSummary>
 
-            {/* {!cart_list && } */}
+                        {/* {!cart_list && } */}
 
-            {cart_list &&
-              cart_list.map((a, i) => {
-                return <CartItem key={i} {...a} />;
-              })}
-          </ProductWrapper>
+                        {cart_list &&
+                            cart_list.map((a, i) => {
+                                return <CartItem key={i} {...a} />;
+                            })}
+                    </ProductWrapper>
 
-          <PriceWrapper>
-            <DeliveryArea>
-              <h3 className="tit">배송지</h3>
-              <div className="address">
-                <p className="addr">서울 용산구 원효로 2가</p>
-              </div>
-              <div className="delivery-type">
-                <span className="delivery-type-star">샛별배송</span>
-              </div>
-              <button
-                style={{
-                  color: "rgb(95, 0, 128)",
-                  backgroundColor: "white",
-                  border: "1px solid rgb(95, 0, 128)",
-                  height: "36px",
-                  margin: "17px 0px 0px",
-                  fontWeight: "600",
-                  fontSize: "12px",
-                  width: "100%",
-                  borderRadius: "4px",
-                }}
-              >
-                배송지 변경
-              </button>
-            </DeliveryArea>
+                    <PriceWrapper>
+                        <DeliveryArea>
+                            <h3 className="tit">배송지</h3>
+                            <div className="address">
+                                <p className="addr">서울 용산구 원효로 2가</p>
+                            </div>
+                            <div className="delivery-type">
+                                <span className="delivery-type-star">샛별배송</span>
+                            </div>
+                            <button
+                                style={{
+                                    color: "rgb(95, 0, 128)",
+                                    backgroundColor: "white",
+                                    border: "1px solid rgb(95, 0, 128)",
+                                    height: "36px",
+                                    margin: "17px 0px 0px",
+                                    fontWeight: "600",
+                                    fontSize: "12px",
+                                    width: "100%",
+                                    borderRadius: "4px",
+                                }}
+                            >
+                                배송지 변경
+                            </button>
+                        </DeliveryArea>
 
-            <PriceArea>
-              <PriceDetail>
-                <p>상품금액</p>
-                <p>{/* {totalPrice} */}0원</p>
-              </PriceDetail>
-              <PriceDetail>
-                <p>상품할인금액</p>
-                <p>0원</p>
-              </PriceDetail>
-              <PriceDetail>
-                <p>배송비</p>
-                <p>0원</p>
-              </PriceDetail>
-              <hr style={{ margin: "17px 0", border: "1px solid #eee" }} />
-              <PriceDetail style={{ alignItems: "center" }}>
-                <p>결제예정금액</p>
-                <p style={{ fontSize: "20px", fontWeight: "700" }}>
-                  {/* {totalPrice} */}0원
-                </p>
-              </PriceDetail>
-              <Point>
-                <span className="bage">적립</span>
-                구매 시<span className="save">0원 적립</span>
-                {/* {Total Price * 0.005}  */}
-              </Point>
-            </PriceArea>
+                        <PriceArea>
+                            <PriceDetail>
+                                <p>상품금액</p>
+                                <p>{/* {totalPrice} */}0원</p>
+                            </PriceDetail>
+                            <PriceDetail>
+                                <p>상품할인금액</p>
+                                <p>0원</p>
+                            </PriceDetail>
+                            <PriceDetail>
+                                <p>배송비</p>
+                                <p>0원</p>
+                            </PriceDetail>
+                            <hr style={{ margin: "17px 0", border: "1px solid #eee" }} />
+                            <PriceDetail style={{ alignItems: "center" }}>
+                                <p>결제예정금액</p>
+                                <p style={{ fontSize: "20px", fontWeight: "700" }}>
+                                    {/* {totalPrice} */}0원
+                                </p>
+                            </PriceDetail>
+                            <Point>
+                                <span className="bage">적립</span>
+                                구매 시<span className="save">0원 적립</span>
+                                {/* {Total Price * 0.005}  */}
+                            </Point>
+                        </PriceArea>
 
-            <ButtonArea>
-              <button
-                style={{
-                  fontFamily: "Noto Sans",
-                  backgroundColor: "#5f0080",
-                  color: "white",
-                  height: "56px",
-                  borderRadius: "5px",
-                  fontSize: "16px",
-                  fontWeight: 600,
-                  width: "100%",
-                  border: "none",
-                  cursor: "pointer",
-                  lineHeight: "48px",
-                }}
-              >
-                주문하기
-              </button>
-            </ButtonArea>
+                        <ButtonArea>
+                            <button
+                                style={{
+                                    fontFamily: "Noto Sans",
+                                    backgroundColor: "#5f0080",
+                                    color: "white",
+                                    height: "56px",
+                                    borderRadius: "5px",
+                                    fontSize: "16px",
+                                    fontWeight: 600,
+                                    width: "100%",
+                                    border: "none",
+                                    cursor: "pointer",
+                                    lineHeight: "48px",
+                                }}
+                            >
+                                주문하기
+                            </button>
+                        </ButtonArea>
 
-            <Notice>
-              <span>
-                <span className="ico">·</span>쿠폰/적립금은 주문서에서 사용
-                가능합니다
-              </span>
-              <span>
-                <span className="ico">·</span>[배송준비중] 이전까지 주문 취소
-                가능합니다.
-              </span>
-              <span>
-                <span className="ico">·</span>[마이컬리 &lt; 주문내역
-                상세페이지] 에서 직접 취소할 수 있습니다.
-              </span>
-            </Notice>
-          </PriceWrapper>
-        </InfoWrapper>
-      </Container>
-    </>
-  );
+                        <Notice>
+                            <span>
+                                <span className="ico">·</span>쿠폰/적립금은 주문서에서 사용
+                                가능합니다
+                            </span>
+                            <span>
+                                <span className="ico">·</span>[배송준비중] 이전까지 주문 취소
+                                가능합니다.
+                            </span>
+                            <span>
+                                <span className="ico">·</span>[마이컬리 &lt; 주문내역
+                                상세페이지] 에서 직접 취소할 수 있습니다.
+                            </span>
+                        </Notice>
+                    </PriceWrapper>
+                </InfoWrapper>
+            </Container>
+        </>
+    );
 };
 
 //   <hr style={{ width: "720px", size: "5" }} />
