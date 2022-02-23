@@ -15,6 +15,7 @@ const initialState = {
   is_login: false,
 };
 
+
 const usernameCheckF = (username) => {
   return function (dispatch, getState) {
     console.log(username);
@@ -82,6 +83,7 @@ const signupDB = (username, password, passwordCheck, email, nickname) => {
         //회원가입 시 서버로 해당 값들 보냄
       });
       console.log(signup);
+
       if (signup.data.result === true) {
         window.alert("성공적으로 회원가입하셨습니다!");
         window.location.replace("/login");
@@ -89,6 +91,7 @@ const signupDB = (username, password, passwordCheck, email, nickname) => {
       } else if (signup.data.result === false) {
         window.alert(signup.data.errorMessage);
         window.location.replace("/signup");
+
         //회원가입 실패 시 다시 signup 페이지로 이동
       }
     } catch (err) {
@@ -100,15 +103,17 @@ const signupDB = (username, password, passwordCheck, email, nickname) => {
 
 const loginDB = (username, password) => {
   return async function (dispatch, getState, { history }) {
+
     try {
       const login = await axios.post("http://3.38.153.67/user/login", {
         username: username,
         password: password,
       });
       console.log(login);
+
       dispatch(
         setUser({
-          username: username,
+          // username: username,
         })
       );
       localStorage.setItem("token", login.headers.authorization.split(" ")[1]);
@@ -124,6 +129,7 @@ const loginDB = (username, password) => {
     }
   };
 };
+
 
 const loginCheckDB = (token_key) => {
   return async function (dispatch, getState, { history }) {
@@ -142,7 +148,8 @@ const loginCheckDB = (token_key) => {
       dispatch(
         setUser({
           username: check.data.username,
-          // nickname: check.data.nickname,
+          nickname: check.data.nickname,
+          userid: check.data.id,
         })
       );
       //   dispatch(
@@ -188,3 +195,4 @@ const actionCreators = {
 };
 
 export { actionCreators };
+

@@ -1,42 +1,66 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import Cart from '../elements/Cart';
+import { useDispatch } from "react-redux";
 
+import Cart from "../elements/Cart";
 
-const Product = (props) => {
+import { actionCreators as cartActions } from "../redux/modules/cart";
+import { useSelector } from "react-redux";
 
+const Card = (props) => {
+  const data = props.data;
+  const a = props.data.price;
 
-
+  const price = a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   return (
-
     <ProductContainer>
-      <ProductImgWrap>
-        <img src={props.Img}></img>
-        <Cart></Cart>
-      </ProductImgWrap>
-      <TextWrap>
-        <ProductTitle>{props.Title}</ProductTitle>
-        {/* <CostBox>
-            <ProductPrice>{props.Price} 원</ProductPrice>
-          </CostBox> */}
-        <CostBox>
-          <Sale>{props.Sale}%</Sale>
-          <ProductPrice> 11,858 원</ProductPrice>
-        </CostBox>
-        <SalePrice>{props.Price}원</SalePrice>
-      </TextWrap>
-    </ProductContainer>
+      <React.Fragment>
+        <ProductImgWrap>
+          <img src={data.img}></img>
+          <Cart></Cart>
+        </ProductImgWrap>
 
+        {/* {
+            (sale) ?
+          <TextWrap>
+              <ProductTitle>{data.title}</ProductTitle>
+              <CostBox>
+                <ProductPrice>{data.price} 원</ProductPrice>
+              </CostBox>
+              <CostBox>
+                <Sale>{props.Sale}%</Sale>
+                <ProductPrice> 11,858 원</ProductPrice>
+              </CostBox>
+              <SalePrice>{props.Price}원</SalePrice>
+          </TextWrap> 
+          :
+          <TextWrap>
+            <ProductTitle>{data.title}</ProductTitle>
+            <CostBox>
+              <ProductPrice>{data.price} 원</ProductPrice>
+            </CostBox>
+          </TextWrap> 
+
+          } */}
+
+        <TextWrap>
+          <ProductTitle>{data.title}</ProductTitle>
+          <CostBox>
+            <ProductPrice>{price} 원</ProductPrice>
+          </CostBox>
+        </TextWrap>
+      </React.Fragment>
+    </ProductContainer>
   );
 };
 
-Product.defaultProps = {
-  Title: "친환경 하우스 딸기 (설향) 500g",
-  Img: "https://img-cf.kurly.com/shop/data/goods/1609229005799l0.jpg",
-  Sale: "23",
-  Price: "15,400"
-}
+// Card.defaultProps = {
+//   Title: "친환경 하우스 딸기 (설향) 500g",
+//   Img: "https://img-cf.kurly.com/shop/data/goods/1609229005799l0.jpg",
+//   Sale: "23",
+//   Price: "15,400"
+// }
 
 const ProductContainer = styled.div`
   /* padding: 32px 0px 40px; */
@@ -57,14 +81,13 @@ const CostBox = styled.span`
 `;
 
 const Sale = styled.span`
-    color: rgb(250, 98, 47);
-    font-size: 16px;
-    font-weight: 800;
-    line-height: 1.5;
-    white-space: nowrap;
-    margin-right: 7px;
-
-`
+  color: rgb(250, 98, 47);
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.5;
+  white-space: nowrap;
+  margin-right: 7px;
+`;
 
 const ProductPrice = styled.span`
   font-weight: 700;
@@ -75,14 +98,13 @@ const ProductPrice = styled.span`
 `;
 
 const SalePrice = styled.span`
-    color: rgb(153, 153, 153);
-    font-size: 15px;
-    font-weight: 500;
-    line-height: normal;
-    text-decoration: line-through;
-    margin-top: 2px;
-
-`
+  color: rgb(153, 153, 153);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration: line-through;
+  margin-top: 2px;
+`;
 
 // const ProductSubTitle = styled.p`
 //   display: block;
@@ -110,13 +132,11 @@ const ProductTitle = styled.p`
   overflow-wrap: break-word;
 `;
 
-
-
 const ProductImgWrap = styled.div`
   overflow: hidden;
   position: relative;
   width: 249px;
-    height: 320px;
+  height: 320px;
   & img {
     position: relative;
     z-index: 150;
@@ -149,9 +169,6 @@ const TextWrap = styled.div`
   display: flex;
   flex-direction: column;
   padding: 14px 10px 0px 0px;
-`
+`;
 
-
-
-
-export default Product;
+export default Card;
