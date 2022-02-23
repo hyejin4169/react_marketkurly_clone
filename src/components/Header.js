@@ -83,6 +83,7 @@ const Header = (props) => {
                   navigate("/cart");
                 }}
               />
+              <Count></Count>
             </IconWrap>
           </HeaderCategory>
         </div>
@@ -210,6 +211,7 @@ const IconWrap = styled.div`
   margin-left: 5px;
 `;
 const CartIcon = styled.div`
+  position:relative;
   width: 36px;
   height: 36px;
   background-image: url(https://res.kurly.com/pc/service/common/2011/ico_cart.svg);
@@ -217,6 +219,26 @@ const CartIcon = styled.div`
     background-image: url(https://res.kurly.com/pc/service/common/2011/ico_cart_on.svg?v=1);
   }
 `;
+
+const Count = styled.span`
+    /* position: absolute;
+    left: 19px;
+    top: -1px;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 5px;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    background-color: #5f0080;
+    font-size: 9px;
+    color: #fff;
+    line-height: 15px;
+    text-align: center;
+    white-space: nowrap; */
+
+
+`
+
 const LocationIcon = styled.div`
   width: 36px;
   height: 36px;

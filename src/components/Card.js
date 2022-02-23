@@ -1,61 +1,63 @@
 import React from "react";
 import styled from "styled-components";
-import Cart from '../elements/Cart';
-import { useSelector } from "react-redux";
+import CartIcon from '../elements/CartIcon';
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { actionCreators as postActions } from "../redux/modules/post";
 
 
 const Card = (props) => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const data = props.data;
-  const a = props.data.price
+  const data = props.data
 
-  const price = a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+  const original = data.originalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+  const discounted = data.discountedPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 
 
   return (
-    <ProductContainer>
+
+    <ProductContainer
+      onClick={() => {
+        navigate(`/detail/${data.pid}`);
+        // dispatch(postActions.detailPostDB(data.pid))
+      }}>
 
       <React.Fragment>
         <ProductImgWrap>
-          <img src={data.img}></img>
-          <Cart></Cart>
+          <img src={data.mainImageUrl} />
+          <CartIcon ></CartIcon>
         </ProductImgWrap>
 
-        {/* {
-            (sale) ?
-          <TextWrap>
-              <ProductTitle>{data.title}</ProductTitle>
+        {
+          (data.discountPercent !== 0) ?
+            <TextWrap>
+              <ProductSubTitle>{data.shortDescription}</ProductSubTitle>
+              <ProductTitle>{data.name}</ProductTitle>
               <CostBox>
-                <ProductPrice>{data.price} 원</ProductPrice>
+
               </CostBox>
               <CostBox>
-                <Sale>{props.Sale}%</Sale>
-                <ProductPrice> 11,858 원</ProductPrice>
+                <Sale>{data.discountPercent}%</Sale>
+                <ProductPrice> {discounted}원</ProductPrice>
               </CostBox>
-              <SalePrice>{props.Price}원</SalePrice>
-          </TextWrap> 
-          :
-          <TextWrap>
-            <ProductTitle>{data.title}</ProductTitle>
-            <CostBox>
-              <ProductPrice>{data.price} 원</ProductPrice>
-            </CostBox>
-          </TextWrap> 
+              <SalePrice>{original}원</SalePrice>
+            </TextWrap>
+            :
+            <TextWrap>
+              <ProductTitle>{data.name}</ProductTitle>
+              <CostBox>
+                <ProductPrice>{original} 원</ProductPrice>
+              </CostBox>
+            </TextWrap>
 
-          } */}
-
-        <TextWrap>
-          <ProductTitle>{data.title}</ProductTitle>
-          <CostBox>
-            <ProductPrice>{price} 원</ProductPrice>
-          </CostBox>
-        </TextWrap>
-
+        }
       </React.Fragment>
 
 
 
-    </ProductContainer>
+    </ProductContainer >
   );
 };
 
@@ -112,15 +114,13 @@ const SalePrice = styled.span`
 
 `
 
-// const ProductSubTitle = styled.p`
-//   display: block;
-//   padding-top: 8px;
-//   font-size: 13px;
-//   color: #999;
-//   line-height: 19px;
-//   font-weight: 400;
-//   margin: 0;
-// `;
+const ProductSubTitle = styled.p`
+  display: block;
+  font-size: 13px;
+  color: #999;
+  font-weight: 400;
+  margin: 0;
+`;
 
 const ProductTitle = styled.p`
   font-size: 16px;
@@ -128,17 +128,7 @@ const ProductTitle = styled.p`
   color: rgb(51, 51, 51);
   font-weight: 400;
   margin-bottom: 8px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  letter-spacing: normal;
-  word-break: break-all;
-  overflow-wrap: break-word;
 `;
-
-
 
 const ProductImgWrap = styled.div`
   overflow: hidden;
@@ -176,7 +166,7 @@ const TextWrap = styled.div`
   z-index: 140;
   display: flex;
   flex-direction: column;
-  padding: 14px 10px 0px 0px;
+  margin-top: 2px;
 `
 
 

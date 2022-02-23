@@ -9,7 +9,7 @@ const EDIT_CART = "EDIT+CART";
 const DELETE_CART = "DELETE_CART";
 
 // action creators
-const addCart = createAction(ADD_CART, () => ({}));
+const addCart = createAction(ADD_CART, (product_id) => ({ product_id }));
 const getCart = createAction(GET_CART, () => ({}));
 const editCart = createAction(EDIT_CART, () => ({}));
 const deleteCart = createAction(DELETE_CART, (cartItemId) => ({
@@ -87,11 +87,13 @@ const addCartDB = (product_id, count) => {
   return function (dispatch, getState, { history }) {
     console.log(product_id, count);
     axios
-      .post(`http://localhost:3003/cart/${product_id}`, {
-        counts: count,
+      .post(`http://3.38.153.67/cart/${product_id}`, {
+        pid: product_id,
+        quantity: count
       })
-      .then((response) => {
-        /* dispatch(addCart()) */
+      .then((res) => {
+        console.log(res)
+        dispatch(addCart(res))
         console.log("카트담기 성공");
       })
       .catch((err) => {
@@ -103,10 +105,10 @@ const addCartDB = (product_id, count) => {
 const editCartCountDB = (productInCartId, count) => {
   return function (dispatch, getState, { history }) {
     axios
-      .put(`http://localhost:3003/cart/${productInCartId}`, {
+      .put(`http://3.38.153.67/cart/${productInCartId}`, {
         count: count,
       })
-      .then((res) => {})
+      .then((res) => { })
       .catch((err) => {
         console.log("카운트 변경 실패", err);
       });
@@ -138,11 +140,11 @@ export default handleActions(
   {
     [ADD_CART]: (state, action) =>
       produce(state, (draft) => {
-        draft.list.unshift();
+        draft.list.unshift(...action.payload.product_id);
       }),
     [GET_CART]: (state, action) =>
       produce(state, (draft) => {
-        draft.list.push();
+        // draft.list.push(...action.payload.product_id);
       }),
     [EDIT_CART]: (state, action) =>
       produce(state, (draft) => {
