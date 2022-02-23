@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import CartIcon from '../elements/CartIcon';
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
-
 
 const Card = (props) => {
   const navigate = useNavigate();
@@ -15,6 +14,7 @@ const Card = (props) => {
   const original = data.originalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
   const discounted = data.discountedPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
 
+  // const price = a.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   return (
 
@@ -87,14 +87,13 @@ const CostBox = styled.span`
 `;
 
 const Sale = styled.span`
-    color: rgb(250, 98, 47);
-    font-size: 16px;
-    font-weight: 800;
-    line-height: 1.5;
-    white-space: nowrap;
-    margin-right: 7px;
-
-`
+  color: rgb(250, 98, 47);
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.5;
+  white-space: nowrap;
+  margin-right: 7px;
+`;
 
 const ProductPrice = styled.span`
   font-weight: 700;
@@ -105,14 +104,13 @@ const ProductPrice = styled.span`
 `;
 
 const SalePrice = styled.span`
-    color: rgb(153, 153, 153);
-    font-size: 15px;
-    font-weight: 500;
-    line-height: normal;
-    text-decoration: line-through;
-    margin-top: 2px;
-
-`
+  color: rgb(153, 153, 153);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration: line-through;
+  margin-top: 2px;
+`;
 
 const ProductSubTitle = styled.p`
   display: block;
@@ -134,7 +132,7 @@ const ProductImgWrap = styled.div`
   overflow: hidden;
   position: relative;
   width: 249px;
-    height: 320px;
+  height: 320px;
   & img {
     position: relative;
     z-index: 150;
@@ -168,8 +166,5 @@ const TextWrap = styled.div`
   flex-direction: column;
   margin-top: 2px;
 `
-
-
-
 
 export default Card;
