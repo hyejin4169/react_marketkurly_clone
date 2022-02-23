@@ -10,7 +10,6 @@ const initialState = {
   list: [],
 };
 
-
 // 미들웨어
 
 // allposts
@@ -27,6 +26,8 @@ const getPostDB = () => {
       // },
     })
       .then((res) => {
+        console.log(res.data);
+
         dispatch(getPost(res.data));
       })
 
@@ -56,7 +57,6 @@ export default handleActions(
       }),
   },
   initialState
-
 );
 
 const actionCreators = {

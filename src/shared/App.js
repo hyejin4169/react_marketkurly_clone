@@ -7,18 +7,24 @@ import { actionCreators as userActions } from "../redux/modules/user";
 
 import "../App.css";
 
-
 //components
 import { Header } from "../components/component";
 
 //pages
-import { Main, Login, Signup, CartList, NotFound } from "../pages/page";
+import {
+  Main,
+  Login,
+  Signup,
+  CartList,
+  NotFound,
+  CommentWrite,
+} from "../pages/page";
 
 function App() {
   const dispatch = useDispatch();
   const token_key = `${localStorage.getItem("token")}`;
   const islogin = useSelector((state) => state.user.is_login);
-  console.log("islogin 값: ", islogin);
+  console.log("islogin: ", islogin);
 
   useEffect(() => {
     // if (!islogin) {
@@ -37,10 +43,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/cart" element={<CartList />} />
-
-        {/* <Route path="/write" element={<Write />} />
-        <Route path="/write/:id" element={<Write />} />
-        <Route path="/post/:id" element={<CardDetail />} /> */}
+        <Route path="/comment/write/:id" element={<CommentWrite />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </div>

@@ -7,10 +7,20 @@ import { actionCreators as cartActions } from "../redux/modules/cart";
 const CartItem = (props) => {
   const dispatch = useDispatch();
   const cart_list = props;
-  const [count, setCount] = useState(cart_list.quantity);
-  const [state, setState] = React.useState({
-    checkItem: true,
-  });
+  // const [count, setCount] = useState(cart_list.quantity);
+  const [select, setSelect] = useState(true);
+
+  const editCount = (count) => {
+    if (count === "plus") {
+      dispatch(
+        cartActions.editCartDB(cart_list.cartItemId, cart_list.quantity + 1)
+      );
+    } else if (count === "minus") {
+      dispatch(
+        cartActions.editCartDB(cart_list.cartItemId, cart_list.quantity - 1)
+      );
+    }
+  };
 
   const deleteItem = () => {
     dispatch(cartActions.deleteCartDB(cart_list.cartItemId));
@@ -21,10 +31,18 @@ const CartItem = (props) => {
       <ul className="list">
         <li>
           <div className="item">
-            <label className="check">
-              <input type="checkbox" name="checkItem" />
+            {/* <label className="check">
+              <input
+                id={cart_list.name}
+                type="checkbox"
+                name="checkItem"
+                onClick={() => {
+                  select ? setSelect(false) : setSelect(true);
+                  console.log(select);
+                }}
+              />
               <span className="ico" />
-            </label>
+            </label> */}
 
             <div className="name">
               <div className="inner-name">
@@ -47,25 +65,41 @@ const CartItem = (props) => {
 
               <div className="price">
                 <div className="real-price">
-                  <span className="selling">{cart_list.price}</span>
+                  <span className="selling">
+                    {cart_list.price * cart_list.quantity}
+                  </span>
                 </div>
                 <div className="counter">
+                  {cart_list.quantity <= 1 && (
+                    <button
+                      type="button"
+                      className="btn-minus"
+                      style={{
+                        backgroundImage: `url("https://res.kurly.com/pc/service/common/2009/ico_minus.svg")`,
+                      }}
+                    />
+                  )}
+                  {cart_list.quantity > 1 && (
+                    <button
+                      type="button"
+                      className="btn-minus"
+                      onClick={() => {
+                        if (cart_list.quantity <= 1) {
+                          return;
+                        }
+                        // setCount(count - 1);
+                        editCount("minus");
+                      }}
+                    />
+                  )}
+
+                  <input defaultValue={cart_list.quantity} className="number" />
                   <button
                     type="button"
-                    className="btn-minus"
-                    onClick={() => {
-                      if (count <= 1) {
-                        return;
-                      }
-                      setCount(count - 1);
-                    }}
-                  />
-
-                  <input value={count} className="number" />
-                  <button
                     className="btn-plus"
                     onClick={() => {
-                      setCount(count + 1);
+                      // setCount(count + 1);
+                      editCount("plus");
                     }}
                   />
                 </div>
@@ -147,7 +181,7 @@ const ItemBox = styled.div`
           display: table;
           width: 327px;
           min-height: 91px;
-          padding: 19px 0 18px 136px;
+          padding: 19px 0 18px 120px;
           .inner-name {
             display: table-cell;
             vertical-align: middle;
@@ -187,7 +221,7 @@ const ItemBox = styled.div`
             font-size: 0;
             text-indent: 0px;
             position: absolute;
-            left: 56px;
+            left: 30px;
             top: 50%;
             margin-top: -39px;
           }

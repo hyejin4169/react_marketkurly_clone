@@ -24,7 +24,7 @@ const Main = () => {
   const post_list = useSelector((state) => state.post.list);
   const user_id = useSelector((state) => state.user.user?.userid);
   console.log(post_list);
-  console.log(user_id);
+  console.log("uid: ", user_id);
 
   useEffect(() => {
     dispatch(postActions.getPostDB());

@@ -5,7 +5,7 @@ import axios from "axios";
 // actions
 const ADD_CART = "ADD_CART";
 const GET_CART = "GET_CART";
-const EDIT_CART = "EDIT+CART";
+const EDIT_CART = "EDIT_CART";
 const DELETE_CART = "DELETE_CART";
 
 // action creators
@@ -22,42 +22,42 @@ const deleteCart = createAction(DELETE_CART, (cartItemId) => ({
 // initial state
 const initialState = {
   list: [
-    // {
-    //   cartItemId: 1,
-    //   uid: 1,
-    //   pid: 1,
-    //   title: "GAP 스위텔 토마토 500g",
-    //   price: 5900,
-    //   img: "https://img-cf.kurly.com/shop/data/goods/1590727164974i0.jpg",
-    //   quantity: 1,
-    // },
-    // {
-    //   cartItemId: 2,
-    //   uid: 1,
-    //   pid: 2,
-    //   title: "[고래사어묵] 김치 우동 전골",
-    //   price: 9900,
-    //   img: "https://img-cf.kurly.com/shop/data/goods/1634538009994i0.jpg",
-    //   quantity: 2,
-    // },
-    // {
-    //   cartItemId: 3,
-    //   uid: 1,
-    //   pid: 3,
-    //   title: "[썬키스트] 고당도 오렌지 3입 750g (대과)",
-    //   price: 10600,
-    //   img: "https://img-cf.kurly.com/shop/data/goods/1463996583774i0.jpg",
-    //   quantity: 3,
-    // },
-    // {
-    //   cartItemId: 4,
-    //   uid: 1,
-    //   pid: 4,
-    //   title: "[창억] 호박인절미",
-    //   price: 8500,
-    //   img: "https://img-cf.kurly.com/shop/data/goods/163762991123i0.jpeg",
-    //   quantity: 4,
-    // },
+    {
+      cartItemId: 1,
+      uid: 1,
+      pid: 1,
+      title: "GAP 스위텔 토마토 500g",
+      price: 5900,
+      img: "https://img-cf.kurly.com/shop/data/goods/1590727164974i0.jpg",
+      quantity: 1,
+    },
+    {
+      cartItemId: 2,
+      uid: 1,
+      pid: 2,
+      title: "[고래사어묵] 김치 우동 전골",
+      price: 9900,
+      img: "https://img-cf.kurly.com/shop/data/goods/1634538009994i0.jpg",
+      quantity: 2,
+    },
+    {
+      cartItemId: 3,
+      uid: 1,
+      pid: 3,
+      title: "[썬키스트] 고당도 오렌지 3입 750g (대과)",
+      price: 10600,
+      img: "https://img-cf.kurly.com/shop/data/goods/1463996583774i0.jpg",
+      quantity: 3,
+    },
+    {
+      cartItemId: 4,
+      uid: 1,
+      pid: 4,
+      title: "[창억] 호박인절미",
+      price: 8500,
+      img: "https://img-cf.kurly.com/shop/data/goods/163762991123i0.jpeg",
+      quantity: 4,
+    },
   ],
   total_price: 0,
 };
@@ -66,12 +66,12 @@ const initialState = {
 const getCartDB = () => {
   return function (dispatch, getState, { history }) {
     const token_key = `${localStorage.getItem("token")}`;
-    const id = getState().user.user?.id;
+    const id = getState().user.user;
     let list = [];
     console.log(id);
     axios({
       method: "get",
-      url: "http://____/api/carts",
+      url: "http://3.38.153.67/api/carts",
       // data: {
       //   uid: id,
       // },
@@ -100,7 +100,7 @@ const addCartDB = (pid, quantity) => {
     console.log(pid, quantity);
     axios
       .post(
-        `http://___/api/carts/${pid}`,
+        `http://3.38.153.67/api/carts/${pid}`,
         {
           pid: pid,
           quantity: quantity,
@@ -122,13 +122,14 @@ const addCartDB = (pid, quantity) => {
   };
 };
 
-const editCartCountDB = (cartItemId, quantity) => {
+const editCartDB = (pid, quantity) => {
   return function (dispatch, getState, { history }) {
     const token_key = `${localStorage.getItem("token")}`;
     axios
       .put(
-        `http://localhost:3003/api/carts/${cartItemId}`,
+        `http://3.38.153.67/api/carts/${pid}`,
         {
+          pid: pid,
           quantity: quantity,
         },
         {
@@ -138,7 +139,7 @@ const editCartCountDB = (cartItemId, quantity) => {
         }
       )
       .then((res) => {
-        dispatch(editCart(cartItemId, quantity));
+        dispatch(editCart(pid, quantity));
       })
       .catch((err) => {
         console.log("카운트 변경 실패", err);
@@ -146,14 +147,17 @@ const editCartCountDB = (cartItemId, quantity) => {
   };
 };
 
-const deleteCartDB = (cartItemId) => {
+const deleteCartDB = (pid) => {
   return function (dispatch, getState, { history }) {
     const token_key = `${localStorage.getItem("token")}`;
     const _cart_list = getState().cart.list;
 
     axios({
       method: "delete",
-      url: `http://____/api/carts/${cartItemId}`,
+      url: `http://3.38.153.67/api/carts/${pid}`,
+      data: {
+        pid: pid,
+      },
       headers: {
         "content-type": "applicaton/json;charset=UTF-8",
         accept: "application/json",
@@ -162,7 +166,7 @@ const deleteCartDB = (cartItemId) => {
     })
       .then((res) => {
         const idx = _cart_list.findIndex((c) => {
-          return parseInt(c.cartItemId) === parseInt(cartItemId);
+          return parseInt(c.pid) === parseInt(pid);
         });
 
         dispatch(deleteCart(idx));
@@ -192,7 +196,7 @@ export default handleActions(
       }),
     [GET_CART]: (state, action) =>
       produce(state, (draft) => {
-        draft.list.push(...action.payload.cart_list);
+        // draft.list.push(...action.payload.cart_list);
 
         draft.list = draft.list.reduce((acc, cur) => {
           if (acc.findIndex((a) => a.pid === cur.pid) === -1) {
@@ -226,7 +230,7 @@ export default handleActions(
 const actionCreators = {
   getCartDB,
   addCartDB,
-  editCartCountDB,
+  editCartDB,
   deleteCartDB,
 };
 

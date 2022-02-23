@@ -6,8 +6,8 @@ import { createBrowserHistory } from "history";
 import Cart from "./modules/cart";
 import Post from "./modules/post";
 import User from "./modules/user";
-// import Image from "./modules/image";
-// import Comment from "./modules/comment";
+import Image from "./modules/image";
+import Comment from "./modules/comment";
 
 export const history = createBrowserHistory();
 
@@ -15,8 +15,8 @@ const rootReducer = combineReducers({
   cart: Cart,
   post: Post,
   user: User,
-  // image: Image,
-  // comment: Comment,
+  image: Image,
+  comment: Comment,
   // router: connectRouter(history),
 });
 

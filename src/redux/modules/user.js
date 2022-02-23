@@ -15,13 +15,12 @@ const initialState = {
   is_login: false,
 };
 
-
 const usernameCheckF = (username) => {
   return function (dispatch, getState) {
     console.log(username);
     axios({
       method: "post",
-      url: "http://13.124.130.158/api/user/signup/username",
+      url: "http://3.38.153.67/api/user/signup/username",
       data: {
         username: username,
       },
@@ -46,7 +45,7 @@ const emailCheckF = (email) => {
     console.log(email);
     axios({
       method: "post",
-      url: "http://13.124.130.158/api/user/signup/email",
+      url: "http://3.38.153.67/api/user/signup/email",
       data: {
         email: email,
       },
@@ -74,8 +73,7 @@ const signupDB = (username, password, passwordCheck, email, nickname) => {
       "email : " + email
     );
     try {
-      const signup = await axios.post("http://13.124.130.158/api/user/signup", {
-
+      const signup = await axios.post("http://3.38.153.67/api/user/signup", {
         username: username,
         password: password,
         passwordCheck: passwordCheck,
@@ -86,8 +84,8 @@ const signupDB = (username, password, passwordCheck, email, nickname) => {
       console.log(signup);
 
       if (signup.data.result === true) {
-        // window.alert("성공적으로 회원가입하셨습니다!");
-        // window.location.replace("/login");
+        window.alert("성공적으로 회원가입하셨습니다!");
+        window.location.replace("/login");
         //회원가입 완료 시 login 페이지로 이동
       } else if (signup.data.result === false) {
         window.alert(signup.data.errorMessage);
@@ -103,24 +101,19 @@ const signupDB = (username, password, passwordCheck, email, nickname) => {
 };
 
 const loginDB = (username, password) => {
+  console.log(username, password);
   return async function (dispatch, getState, { history }) {
-
     try {
-      const login = await axios.post("http://13.124.130.158/user/login", {
-
+      const login = await axios.post("http://3.38.153.67/user/login", {
         username: username,
         password: password,
       });
       console.log(login);
 
-      dispatch(
-        setUser({
-          // username: username,
-        })
-      );
+      dispatch(setUser({}));
       localStorage.setItem("token", login.headers.authorization.split(" ")[1]);
-      // window.alert("로그인 되었습니다!");
-      // window.location.replace("/");
+      window.alert("로그인 되었습니다!");
+      window.location.replace("/");
 
       // 로그인 성공 시 메인으로 이동
 
@@ -132,21 +125,22 @@ const loginDB = (username, password) => {
   };
 };
 
-
 const loginCheckDB = (token_key) => {
   return async function (dispatch, getState, { history }) {
-    console.log(token_key);
     try {
-      const check = await axios.post("http://13.124.130.158/api/user/islogin", {}, {
-        headers: {
-          // "content-type": "applicaton/json;charset=UTF-8",
-          // "accept": "application/json",
-          Authorization: `Bearer ${token_key}`,
-        },
-        //헤더에 토큰 담기
-      });
+      const check = await axios.post(
+        "http://3.38.153.67/api/user/islogin",
+        {},
+        {
+          headers: {
+            // "content-type": "applicaton/json;charset=UTF-8",
+            // "accept": "application/json",
+            Authorization: `Bearer ${token_key}`,
+          },
+          //헤더에 토큰 담기
+        }
+      );
       // if (check.data.ok === true) {
-      console.log(check);
       dispatch(
         setUser({
           username: check.data.username,
@@ -197,4 +191,3 @@ const actionCreators = {
 };
 
 export { actionCreators };
-

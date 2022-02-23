@@ -8,15 +8,25 @@ import { CartItem } from "../components/component";
 
 const CartList = (props) => {
   const dispatch = useDispatch();
-
   const cart_list = useSelector((state) => state.cart.list);
-  let now_price = useSelector((state) => state.cart.total_price);
   const [allSelect, setAllSelect] = useState(true);
 
-  const total_quantity = cart_list
-    .map((a) => +a.quantity)
+  //price part
+  let total_quantity = cart_list.map((a) => a.quantity).reduce((a, c) => a + c);
+
+  let now_price = cart_list
+    .map((a) => a.price * a.quantity)
     .reduce((a, c) => a + c);
-  console.log(total_quantity);
+
+  let total_price = 0;
+  const delivery_fee = 3000;
+  if (now_price < 40000) {
+    total_price = now_price + delivery_fee;
+  } else {
+    total_price = now_price;
+  }
+  console.log("총 수량: ", total_quantity);
+  console.log("총 가격: ", total_price);
 
   useEffect(() => {
     if (cart_list) dispatch(cartActions.getCartDB());
@@ -33,22 +43,23 @@ const CartList = (props) => {
         <InfoWrapper>
           <ProductWrapper>
             <ProductSummary>
-              <label className="check">
+              {/* <label className="check">
                 <input
                   type="checkbox"
                   name="checkAll"
                   onClick={() => {
-                    setAllSelect(true);
+                    allSelect ? setAllSelect(false) : setAllSelect(true);
+                    console.log(allSelect);
                   }}
                 />
-                <span className="ico" />
-                전체선택 (0/{total_quantity})
-              </label>
-
-              {/* {products.length} */}
-              <a href="#none" className="select-delete">
+                <span className="ico" /> */}
+              <div style={{ marginBottom: "10px" }}>
+                전체선택 ({total_quantity}/{total_quantity})
+              </div>
+              {/* </label> */}
+              {/* <a href="#none" className="select-delete">
                 선택삭제
-              </a>
+              </a> */}
             </ProductSummary>
 
             {/* {!cart_list && } */}
@@ -63,7 +74,7 @@ const CartList = (props) => {
             <DeliveryArea>
               <h3 className="tit">배송지</h3>
               <div className="address">
-                <p className="addr">서울 용산구 원효로 2가</p>
+                <p className="addr">항해도 항해시 항해로 99가길 99</p>
               </div>
               <div className="delivery-type">
                 <span className="delivery-type-star">샛별배송</span>
@@ -87,33 +98,63 @@ const CartList = (props) => {
 
             <PriceArea>
               <PriceDetail>
-                <p>상품금액</p>
-                <p>{/* {totalPrice} */}0원</p>
+                <div className="area">
+                  <p className="product-price">상품금액</p>
+                  <p className="product-price-fee">
+                    {now_price.toLocaleString("ko-KR")}원
+                  </p>
+                </div>
               </PriceDetail>
               <PriceDetail>
-                <p>상품할인금액</p>
-                <p>0원</p>
+                <div className="discount-area">
+                  <p className="discount">상품할인금액</p>
+                  <p className="discount-price">0원</p>
+                </div>
               </PriceDetail>
               <PriceDetail>
-                <p>배송비</p>
-                <p>0원</p>
+                <div className="area">
+                  <p className="delivery-fee">배송비</p>
+                  <p className="delivery-fee-price">
+                    {now_price < 40000 ? "+3,000원" : "0원"}
+                  </p>
+                </div>
               </PriceDetail>
+              <p className="free">
+                {now_price < 40000
+                  ? `${(40000 - now_price).toLocaleString(
+                      "ko-KR"
+                    )}원 추가주문 시 무료배송`
+                  : ""}
+              </p>
               <hr style={{ margin: "17px 0", border: "1px solid #eee" }} />
               <PriceDetail style={{ alignItems: "center" }}>
-                <p>결제예정금액</p>
-                <p style={{ fontSize: "20px", fontWeight: "700" }}>
-                  {/* {totalPrice} */}0원
+                <p style={{ float: "left" }}>결제예정금액</p>
+                <p
+                  style={{
+                    fontSize: "20px",
+                    fontWeight: "700",
+                    float: "right",
+                  }}
+                >
+                  {total_price === 0
+                    ? "0"
+                    : total_price.toLocaleString("ko-KR")}
+                  원
                 </p>
               </PriceDetail>
               <Point>
                 <span className="bage">적립</span>
-                구매 시<span className="save">0원 적립</span>
+                구매 시
+                <span className="save">
+                  {Math.ceil(total_price * 0.005)}원 적립
+                </span>
                 {/* {Total Price * 0.005}  */}
               </Point>
             </PriceArea>
 
             <ButtonArea>
               <button
+                // onClick={order}
                 style={{
                   fontFamily: "Noto Sans",
                   backgroundColor: "#5f0080",
@@ -306,9 +347,7 @@ const ProductSummary = styled.div`
 
 const PriceWrapper = styled.div`
   position: relative;
-
-  top: 60px;
-
+  top: 40px;
   display: flex;
   flex-direction: column;
   width: 284px;
@@ -367,20 +406,57 @@ const PriceArea = styled.div`
   padding: 9px 18px 18px 20px;
   background-color: #fafafa;
   border: 1px solid #f2f2f2;
+  .free {
+    margin-top: 0px;
+    padding-top: 9px;
+    color: #5f0080;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: right;
+  }
 `;
 
 const PriceDetail = styled.div`
   color: #4c4c4c;
-  display: flex;
+  display: block;
   justify-content: space-between;
+  .product-price {
+    float: left;
+  }
+  .product-price-fee {
+    float: right;
+  }
+  .discount {
+    float: left;
+    margin: 0;
+  }
+  .discount-price {
+    float: right;
+  }
   p {
+    margin: 0;
+  }
+  .delivery-fee {
+    float: left;
     padding-top: 9px;
     margin: 0;
+  }
+  .delivery-fee-price {
+    float: right;
+    padding-top: 9px;
+    margin: 0;
+  }
+  .area {
+    height: 26.5px;
+  }
+  .discount-area {
+    height: 26.5px;
+    padding-top: 10px;
   }
 `;
 
 const Point = styled.div`
-  padding-top: 9px;
+  padding-top: 36px;
   font-size: 12px;
   color: #666;
   line-height: 16px;
