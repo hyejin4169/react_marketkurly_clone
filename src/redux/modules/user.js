@@ -21,7 +21,7 @@ const usernameCheckF = (username) => {
     console.log(username);
     axios({
       method: "post",
-      url: "http://13.124.130.158/api/user/signup/username",
+      url: "http://3.38.153.67/api/user/signup/username",
       data: {
         username: username,
       },
@@ -46,7 +46,7 @@ const emailCheckF = (email) => {
     console.log(email);
     axios({
       method: "post",
-      url: "http://13.124.130.158/api/user/signup/email",
+      url: "http://3.38.153.67/api/user/signup/email",
       data: {
         email: email,
       },
@@ -74,8 +74,7 @@ const signupDB = (username, password, passwordCheck, email, nickname) => {
       "email : " + email
     );
     try {
-      const signup = await axios.post("http://13.124.130.158/api/user/signup", {
-
+      const signup = await axios.post("http://3.38.153.67/api/user/signup", {
         username: username,
         password: password,
         passwordCheck: passwordCheck,
@@ -106,8 +105,7 @@ const loginDB = (username, password) => {
   return async function (dispatch, getState, { history }) {
 
     try {
-      const login = await axios.post("http://13.124.130.158/user/login", {
-
+      const login = await axios.post("http://3.38.153.67/user/login", {
         username: username,
         password: password,
       });
@@ -137,7 +135,7 @@ const loginCheckDB = (token_key) => {
   return async function (dispatch, getState, { history }) {
     console.log(token_key);
     try {
-      const check = await axios.post("http://13.124.130.158/api/user/islogin", {}, {
+      const check = await axios.post("http://3.38.153.67/api/user/islogin", {}, {
         headers: {
           // "content-type": "applicaton/json;charset=UTF-8",
           // "accept": "application/json",

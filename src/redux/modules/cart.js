@@ -99,6 +99,12 @@ const addCartDB = (pid, quantity) => {
     const token_key = `${localStorage.getItem("token")}`;
     console.log(pid, quantity);
     axios
+      .post(`http://3.38.153.67/cart/${product_id}`, {
+        counts: count,
+      })
+      .then((response) => {
+        /* dispatch(addCart()) */
+        console.log("카트담기 성공");
       .post(
         `http://___/api/carts/${pid}`,
         {
@@ -126,10 +132,8 @@ const editCartCountDB = (cartItemId, quantity) => {
   return function (dispatch, getState, { history }) {
     const token_key = `${localStorage.getItem("token")}`;
     axios
-      .put(
-        `http://localhost:3003/api/carts/${cartItemId}`,
-        {
-          quantity: quantity,
+      .put(`http://3.38.153.67/cart/${productInCartId}`, {
+        count: count,
         },
         {
           headers: {

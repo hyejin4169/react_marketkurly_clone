@@ -34,6 +34,7 @@ const CommentWrite = () => {
         <CommentTitleBorder3 />
       </CommentTextWrap>
 
+    <div>
       <CommentPhotoWrap>
         <CommentPhotoTitle style={{ height: "150px" }}>
           사진등록
@@ -45,10 +46,12 @@ const CommentWrite = () => {
         <PhotoDesc>
           구매한 상품이 아니거나 캡쳐 사진을 첨부할 경우, 통보없이 삭제 및 적립
           헤택이 취소됩니다.
+          <CommentTitleBorder4 />
         </PhotoDesc>
-        <CommentTitleBorder4 />
+        {/* <CommentTitleBorder4 /> */}
       </CommentPhotoWrap>
-
+      </div>
+      
       <Issue>
         혹시 상품에 문제가 있으셨나요?
         <IssueSpan>1:1 문의하기</IssueSpan>
@@ -143,10 +146,10 @@ const CommentTitleBorder2 = styled.div`
 const CommentTitleBorder3 = styled.div`
   border-top: 1px solid #dddfe1;
   padding: 10px 0px 10px 10px;
-  width: 710px;
+  width: 670px;
   display: flex;
-  margin-top: 330px;
-  margin-left: -720px;
+  margin-top: 331px;
+  margin-left: -670px;
 `;
 
 const CommentTitle = styled.div`
@@ -223,9 +226,9 @@ const CommentPhotoTitle = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: -118px;
+  margin-top: 41px;
   padding: 0 20 222px;
-  width: 187px;
+  width: 234px;
   height: 100%;
   border-top: 1px solid #dddfe1;
   border-bottom: 1px solid #dddfe1;
@@ -242,12 +245,29 @@ const PhotoDesc = styled.div`
   height: 60px;
   padding: 0 10px;
   font-size: 12px;
-  text-align: left;
+  text-align: center;
+  word-break: inherit;
   color: #666;
   line-height: 18px;
   outline: none;
-  margin-top: 37px;
+  margin-top: 140px;
+  margin-bottom: -60px;
   margin-left: 9px;
+  
+
+  /* padding-bottom: 10px;
+    font-weight: 400;
+    letter-spacing: 0;
+    word-break: break-all;
+    box-sizing: border-box;
+    margin: 0;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    border-collapse: collapse;
+    border-spacing: 0; */
+
 `;
 
 const PhotoUpload = styled.div`
@@ -261,7 +281,7 @@ const PhotoUpload = styled.div`
   margin: 10px 0;
   border: 1px solid #dddfe1;
   margin: 10px;
-  margin-top: -140px;
+  margin-top: 40px;
   padding-bottom: 10px;
   display: block;
 `;
@@ -269,17 +289,17 @@ const PhotoUpload = styled.div`
 const CommentTitleBorder4 = styled.div`
   border-top: 1px solid #dddfe1;
   padding: 10px 0px 10px 10px;
-  width: 710px;
+  width: 677px;
   display: flex;
   justify-content: center;
-  margin-top: 330px;
-  margin-left: -720px;
+  margin-top: 25.5px;
+  margin-left: -600px;
 `;
 
 const Issue = styled.p`
   font-size: 12px;
   display: flex;
-  margin-top: -140px;
+  margin-top: 20px;
   color: #949296;
 `;
 
