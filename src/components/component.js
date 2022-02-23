@@ -7,6 +7,7 @@ import Oneday from "./Oneday";
 import CartItem from "./CartItem";
 import Slide from "./Slide";
 import Modal from "./Modal";
+import CommentBox from "./CommentBox"
 
 export {
   Header,
@@ -18,4 +19,5 @@ export {
   Oneday,
   Slide,
   Modal,
+  CommentBox,
 };
