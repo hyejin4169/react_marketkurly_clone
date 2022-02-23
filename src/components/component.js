@@ -6,11 +6,22 @@ import MiddleBanner from "./MiddleBanner";
 import Oneday from "./Oneday";
 import CartItem from "./CartItem";
 import Slide from "./Slide";
-import Kurlyonly from "./Kurlyonly"
-import Sale from "./Sale"
+import Kurlyonly from "./Kurlyonly";
+import Sale from "./Sale";
 import Recommend from "./Recommend.js";
+import CommentBox from "./CommentBox";
 
-
-
-export { Header, CartItem, Banner, Product, MD, MiddleBanner, Oneday, Slide, Kurlyonly, Sale, Recommend };
-
+export {
+  Header,
+  CartItem,
+  Banner,
+  Product,
+  MD,
+  MiddleBanner,
+  Oneday,
+  Slide,
+  Kurlyonly,
+  Sale,
+  Recommend,
+  CommentBox,
+};

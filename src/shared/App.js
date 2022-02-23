@@ -8,7 +8,7 @@ import { actionCreators as userActions } from "../redux/modules/user";
 import "../App.css";
 
 //components
-import { Header } from "../components/component";
+import { Header, CommentBox } from "../components/component";
 
 //pages
 import {
@@ -46,6 +46,7 @@ function App() {
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/cart" element={<CartList />} />
         <Route path="/comment/write/:id" element={<CommentWrite />} />
+        <Route path="/commentbox" element={<CommentBox />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </div>
