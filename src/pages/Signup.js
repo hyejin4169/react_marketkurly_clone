@@ -79,7 +79,7 @@ const Signup = (props) => {
       window.alert("아이디 형식이 맞지 않습니다!");
       return;
     }
-
+    
     if (!pwdCheck(password)) {
       window.alert("비밀번호 형식이 맞지 않습니다!");
       return;
@@ -364,6 +364,7 @@ const Signup = (props) => {
         가입하기
       </Button>
     </Container>
+
   );
 };
 

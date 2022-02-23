@@ -1,10 +1,12 @@
 // import logo from "../logo.svg";
 import { Route, Routes } from "react-router-dom";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { actionCreators as userActions } from "../redux/modules/user";
 
 import "../App.css";
+
 
 //components
 import { Header } from "../components/component";
@@ -18,7 +20,7 @@ function App() {
   const dispatch = useDispatch();
   const token_key = `${localStorage.getItem("token")}`;
   const islogin = useSelector((state) => state.user.is_login);
-  console.log(islogin);
+  console.log("islogin 값: ", islogin);
 
   useEffect(() => {
     // if (!islogin) {
@@ -38,6 +40,7 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/comment" element={<CommentWrite />} />
+        <Route path="/cart" element={<CartList />} />
 
         {/* <Route path="/write" element={<Write />} />
         <Route path="/write/:id" element={<Write />} />

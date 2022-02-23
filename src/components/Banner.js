@@ -11,7 +11,9 @@ export default function ImageCarousel({ images }) {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
-  console.log(images);
+
+
+
   return (
     <Wrap>
       <Slider {...settings}>
@@ -26,10 +28,14 @@ export default function ImageCarousel({ images }) {
 }
 
 const Wrap = styled.div`
-  margin-bottom: 40px;
+
   margin: auto 0;
+  margin-bottom: 50px;
+
 `;
 
 const Img = styled.img`
   width: 100%;
+  height: 370px;
+
 `;

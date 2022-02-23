@@ -1,10 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import styled from "styled-components";
 
+import { actionCreators as cartActions } from "../redux/modules/cart";
+
+import ModalTwo from "../components/ModalTwo";
+
 const Cart = () => {
+  const dispatch = useDispatch();
+  // const add_cart = () => {dispatch(cartActions.addCartDB(pid, quantity))};
+
+  // const [modalOpen, setModalOpen] = useState(false);
   return (
     <CartIconWrap>
-      <CartIcon></CartIcon>
+      <CartIcon
+      // onClick={(add_cart}
+      />
     </CartIconWrap>
   );
 };
