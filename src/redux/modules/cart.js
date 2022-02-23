@@ -87,7 +87,7 @@ const addCartDB = (product_id, count) => {
   return function (dispatch, getState, { history }) {
     console.log(product_id, count);
     axios
-      .post(`http://localhost:3003/cart/${product_id}`, {
+      .post(`http://3.38.153.67/cart/${product_id}`, {
         counts: count,
       })
       .then((response) => {
@@ -103,7 +103,7 @@ const addCartDB = (product_id, count) => {
 const editCartCountDB = (productInCartId, count) => {
   return function (dispatch, getState, { history }) {
     axios
-      .put(`http://localhost:3003/cart/${productInCartId}`, {
+      .put(`http://3.38.153.67/cart/${productInCartId}`, {
         count: count,
       })
       .then((res) => {})
