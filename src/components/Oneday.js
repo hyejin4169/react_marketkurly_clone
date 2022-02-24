@@ -25,7 +25,7 @@ const Oneday = (props) => {
                 window.scrollTo(0, 0);
               }}
             >
-              <a href="#">
+              <a href="">
                 <img
                   src={
                     "https://img-cf.kurly.com/shop/data/goods/1637155079598i0.jpg"
@@ -53,11 +53,11 @@ const Oneday = (props) => {
           <div>
             <ImgContainer
               onClick={() => {
-                navigate("/detail/540");
+                navigate("/detail/531");
                 window.scrollTo(0, 0);
               }}
             >
-              <a href="#">
+              <a href="">
                 <img
                   src={
                     "https://img-cf.kurly.com/shop/data/goods/1637922958237i0.jpg"

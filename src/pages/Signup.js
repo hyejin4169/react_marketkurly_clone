@@ -170,7 +170,7 @@ const Signup = (props) => {
             <td>
               <Input
                 placeholder="비밀번호를 입력해주세요"
-                // type="password"
+                type="password"
                 padding="14px"
                 width="332px"
                 _onChange={(e) => {
