@@ -12,6 +12,7 @@ import {
 } from "../components/component";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
+import { actionCreators as userActions } from "../redux/modules/user";
 
 //elements
 import images from "../elements/Image";

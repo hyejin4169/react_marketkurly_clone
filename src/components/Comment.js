@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import moment from "moment";
@@ -8,7 +8,7 @@ import { actionCreators as commentActions } from "../redux/modules/comment";
 const Comment = (props) => {
   const dispatch = useDispatch();
   const userId = useSelector((state) => state.user.user?.uid);
-
+  console.log(props.file);
   const [clickComment, setClickComment] = useState(false);
 
   const deleteReview = () => {
@@ -22,6 +22,7 @@ const Comment = (props) => {
     }
     dispatch(commentActions.helpCommentFB(props.commentId, userId));
   };
+
   return (
     <>
       <OneComment
@@ -92,8 +93,8 @@ const Comment = (props) => {
       {clickComment && (
         <CommentDetail>
           <DetailWrap>
-            <DetailTitle>{props.product_name}</DetailTitle>
-            {props.img ? <DetailImage src={props.img} /> : null}
+            <DetailTitle>{props.productName}</DetailTitle>
+            {props.file ? <DetailImage src={props.file} /> : null}
             <Detail>{props.comment}</Detail>
           </DetailWrap>
 
@@ -144,7 +145,7 @@ const DetailTitle = styled.p`
   margin: 12px 0 20px;
   display: block;
   font-weight: 700;
-  font-size: 12px;
+  font-size: 14px;
   color: #514859;
   line-height: 18px;
   text-align: left;

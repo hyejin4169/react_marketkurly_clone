@@ -61,11 +61,24 @@ const Login = () => {
             changePassword(e.target.value);
           }}
         />
-        <div style={{ width: "27%", margin: "10px auto", display: "flex" }}>
+        <div
+          style={{
+            width: "27%",
+            margin: "10px auto",
+            display: "flex",
+            justifyContent: "space-between",
+          }}
+        >
           <CheckWrap>
-            <Check />
+            <Check type="checkbox" />
             <div
-              style={{ color: "#4f4f4f", size: "13px", margin: "0 0 0px 6px" }}
+              style={{
+                color: "#4f4f4f",
+                size: "13px",
+                margin: "0 0 0px 6px",
+                fontSize: "14px",
+                display: "contents",
+              }}
             >
               {" "}
               보안접속
@@ -78,21 +91,19 @@ const Login = () => {
                 color: "#4f4f4f",
                 size: "13px",
                 margin: "0",
-                float: "left",
                 fontSize: "13px",
+                paddingTop: "3px",
               }}
             >
-              아이디 찾기
+              아이디 찾기 | 비밀번호 찾기
             </div>
-            <div
+            {/* <div
               style={{
                 color: "#4f4f4f",
                 fontSize: "13px",
                 margin: "0 0 0 4px",
               }}
-            >
-              | 비밀번호 찾기
-            </div>
+            ></div> */}
           </FindStyle>
         </div>
         <ButtonLogin
@@ -137,6 +148,7 @@ const Check = styled.input`
 `;
 
 const FindStyle = styled.ul`
+  display: contents;
   /* display: flex;
   justify-content: end;
   margin-right: 463px;

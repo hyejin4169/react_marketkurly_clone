@@ -9,8 +9,8 @@ import Slide from "./Slide";
 import Kurlyonly from "./Kurlyonly";
 import Sale from "./Sale";
 import Recommend from "./Recommend.js";
-import CommentBox from "./CommentBox";
 import CommentList from "./CommentList";
+import ScrollToTop from "./ScrollToTop";
 
 export {
   Header,
@@ -24,6 +24,6 @@ export {
   Kurlyonly,
   Sale,
   Recommend,
-  CommentBox,
   CommentList,
+  ScrollToTop,
 };

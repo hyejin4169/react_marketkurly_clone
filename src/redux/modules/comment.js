@@ -20,8 +20,7 @@ const getComment = createAction(GET_COMMENT, (comment) => ({
 const addComment = createAction(ADD_COMMENT, (comment) => ({
   comment,
 }));
-const addCommentImg = createAction(ADD_COMMENTIMG, (commentId, img) => ({
-  commentId,
+const addCommentImg = createAction(ADD_COMMENTIMG, (img) => ({
   img,
 }));
 const deleteComment = createAction(DELETE_COMMENT, (commentId) => ({
@@ -54,7 +53,7 @@ const helpCommentFB = (commentId, uid) => {
     console.log("uid: ", uid);
     axios
       .post(
-        "http://175.118.48.164:7050/api/comment/help",
+        "http://3.38.153.67/api/comment/help",
         { commentId: commentId, uid: uid },
         {
           headers: {
@@ -64,75 +63,75 @@ const helpCommentFB = (commentId, uid) => {
       )
       .then((res) => {
         console.log(res);
-        dispatch(helpComment(commentId, uid));
+        if (res.data === false) {
+          alert("이미 도움이 돼요한 상품평 입니다.");
+        } else {
+          dispatch(helpComment(commentId, uid));
+        }
       });
   };
 };
 
 //ADD COMMENT FB
-const addCommentFB = (uid, post_id, title, content) => {
+const addCommentFB = (uid, post_id, title, content, img) => {
   return function (dispatch, getState, { history }) {
     // const uid = getState().user.user.userid;
     console.log("uid: ", uid);
     console.log("pid: ", post_id);
     console.log("title: ", title);
     console.log("comment: ", content);
-    // console.log("img: ", img);
+    console.log("img: ", img);
 
     const token_key = `${localStorage.getItem("token")}`;
 
-    let comment = {
-      uid: uid,
-      pid: post_id,
-      commentTitle: title,
-      comment: content,
-      // insert_dt: moment().format("YYYY-MM-DD HH:mm:ss"),
-    };
-
+    const form = new FormData();
+    form.append("file", img);
     axios
-      .post(
-        "http://175.118.48.164:7050/api/comment/create",
-        { ...comment },
-        {
-          headers: {
-            Authorization: `Bearer ${token_key}`,
-          },
-        }
-      )
+      .post("http://175.118.48.164:7050/upload/spring", form, {
+        headers: {
+          Authorization: `Bearer ${token_key}`,
+        },
+      })
       .then((res) => {
-        console.log("댓글 작성 콘솔");
-        dispatch(addComment(comment));
-        alert("댓글 작성이 완료되었습니다! :)");
-        window.location.reload();
+        console.log("댓글 이미지 전송: ", res.data);
+
+        let comment = {
+          uid: uid,
+          pid: post_id,
+          commentTitle: title,
+          comment: content,
+          file: res.data.file,
+        };
+
+        axios
+          .post(
+            "http://3.38.153.67/api/comment/create",
+            { ...comment },
+            {
+              headers: {
+                Authorization: `Bearer ${token_key}`,
+              },
+            }
+          )
+          .then((res) => {
+            console.log("댓글 작성 콘솔: ", res.data);
+
+            dispatch(addComment(res.data));
+            alert("댓글 작성이 완료되었습니다! :)");
+            window.location.replace(`/detail/${post_id}`);
+          })
+
+          .catch(function (error) {
+            console.log(error);
+          });
+        // dispatch(addCommentImg(img));
+        // alert("댓글 작성이 완료되었습니다! :)");
+        // window.location.reload();
       })
 
       .catch(function (error) {
         console.log(error);
       });
-
-    // axios
-    //   .post(
-    //     "http://3.38.153.67/7050/upload/spring",
-    //     {
-    //       commentId: commentId,
-    //       img: img,
-    //     },
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${token_key}`,
-    //       },
-    //     }
-    //   )
-    //   .then((res) => {
-    //     console.log("댓글 작성 콘솔");
-    //     dispatch(addCommentImg(commentId, img));
-    //     alert("댓글 작성이 완료되었습니다! :)");
-    //     window.location.reload();
-    //   })
-
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
   };
 };
 
@@ -145,14 +144,14 @@ const getCommentFB = (post_id) => {
       return;
     }
     axios
-      .get(`http://175.118.48.164:7050/api/comment/${post_id}`, {
+      .get(`http://3.38.153.67/api/comment/${post_id}`, {
         headers: {
           Authorization: `Bearer ${token_key}`,
         },
       })
       .then((res) => {
         console.log("COMMENT DATA: ", res.data);
-        dispatch(getComment(res.data));
+        dispatch(getComment(res.data.reverse()));
       })
       .catch((err) => {
         console.log("댓글 정보를 가져올 수가 없어요! :(");
@@ -173,7 +172,7 @@ const editCommentFB = (commentId, newComment = {}) => {
 
     axios({
       method: "put",
-      url: `http://175.118.48.164:7050/api/comment/${commentId}`,
+      url: `http://3.38.153.67/api/comment/${commentId}`,
       data: {
         uid: uid,
         commentId: commentId,
@@ -198,7 +197,7 @@ const deleteCommentFB = (commentId) => {
     console.log(commentId);
     axios({
       method: "delete",
-      url: `http://175.118.48.164:7050/api/comment/${commentId}`,
+      url: `http://3.38.153.67/api/comment/${commentId}`,
       data: {
         commentId: commentId,
       },
@@ -254,9 +253,16 @@ export default handleActions(
   {
     [GET_COMMENT]: (state, action) =>
       produce(state, (draft) => {
+        draft.list = [];
         draft.list.push(...action.payload.comment);
-        // draft.list[action.payload.pid] = action.payload.comment;
-        // draft.list.push(...action.payload.comment);
+        draft.list = draft.list.reduce((acc, cur) => {
+          if (acc.findIndex((a) => a.commentId === cur.commentId) === -1) {
+            return [...acc, cur];
+          } else {
+            acc[acc.findIndex((a) => a.commentId === cur.commentId)] = cur;
+            return acc;
+          }
+        }, []);
       }),
     [ADD_COMMENT]: (state, action) =>
       produce(state, (draft) => {
@@ -286,10 +292,7 @@ export default handleActions(
         let idx = draft.list.findIndex(
           (c) => c.commentId === action.payload.commentId
         );
-        draft.list[idx] = {
-          ...draft.list[idx],
-          ...action.payload.helpList,
-        };
+        draft.list[idx].helpCount = draft.list[idx].helpCount + 1;
       }),
   },
   initialState

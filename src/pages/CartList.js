@@ -9,31 +9,38 @@ import { CartItem } from "../components/component";
 const CartList = (props) => {
   const dispatch = useDispatch();
   const cart_list = useSelector((state) => state.cart.list);
-  console.log(cart_list);
-  const [allSelect, setAllSelect] = useState(true);
 
-  // price part
-  // let total_quantity = cart_list.map((a) => a.quantity).reduce((a, c) => a + c);
+  let quantity_data = [];
+  let price_data = [];
 
-  // let now_price = cart_list
-  //   .map((a) => a.price * a.quantity)
-  //   .reduce((a, c) => a + c);
+  for (let i = 0; i < cart_list.length; i++) {
+    quantity_data.push(cart_list[i].quantity);
+  }
+  for (let i = 0; i < cart_list.length; i++) {
+    price_data.push(cart_list[i].price);
+  }
 
-  let now_price = 100;
-  let total_quantity = 5;
+  let total_quantity = quantity_data.reduce((a, c) => a + c, 0);
+  let now_price = quantity_data.reduce(function (r, a, i) {
+    return r + a * price_data[i];
+  }, 0);
 
   let total_price = 0;
   const delivery_fee = 3000;
-  // if (now_price < 40000) {
-  //   total_price = now_price + delivery_fee;
-  // } else {
-  //   total_price = now_price;
-  // }
+  if (now_price < 40000) {
+    total_price = now_price + delivery_fee;
+  } else {
+    total_price = now_price;
+  }
+
+  console.log("only 물품 가격: ", now_price);
   console.log("총 수량: ", total_quantity);
   console.log("총 가격: ", total_price);
 
   useEffect(() => {
-    dispatch(cartActions.getCartDB());
+    if (cart_list) {
+      dispatch(cartActions.getCartDB());
+    }
   }, []);
 
   return (
@@ -197,48 +204,6 @@ const CartList = (props) => {
     </>
   );
 };
-
-//   <hr style={{ width: "720px", size: "5" }} />
-
-// {products.map((p, idx) => {
-//       return (
-//   <ProductUnitWrapper>
-//     key={p.idx}>
-//     <CheckCircleIcon
-//       color="disabled"
-//       style={{ marginRight: "10px", cursor: "pointer" }}
-//     />
-//     <ProductImage src="p.image" />
-//     <ProductTextWrapper>
-//       <ProductDeadline>p.name</ProductDeadline>
-//       <ProductName>p.description</ProductName>
-//     </ProductTextWrapper>
-//     <ProductQtyWrapper>
-//       <ProductQtyButton
-//         // onClick={subQty}
-//         style={{ cursor: "pointer" }}
-//       >
-//         -
-//       </ProductQtyButton>
-//       <ProductQty>p.amount + qty</ProductQty>
-//       <ProductQtyButton
-//         style={{ cursor: "pointer" }}
-//         // onClick={plusQty}
-//       >
-//         +
-//       </ProductQtyButton>
-//     </ProductQtyWrapper>
-//     <ProductPriceWrapper>
-//       <ProductActualPrice>p.price * 0.5</ProductActualPrice>
-//       <ProductPrice>p.price</ProductPrice>
-//     </ProductPriceWrapper>
-//     <ClearIcon
-//     style={{ color: "#e1e1e1", cursor: "pointer" }}
-//     // onClick={() => deleteProduct(p.productId)}
-//     />
-//   </ProductUnitWrapper>
-//   );
-//     })}
 
 export default CartList;
 

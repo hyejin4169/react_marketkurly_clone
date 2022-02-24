@@ -8,7 +8,7 @@ import { actionCreators as userActions } from "../redux/modules/user";
 import "../App.css";
 
 //components
-import { Header, CommentBox } from "../components/component";
+import { Header } from "../components/component";
 
 //pages
 import {
@@ -28,12 +28,12 @@ function App() {
   console.log("islogin: ", islogin);
 
   useEffect(() => {
-    // if (!islogin) {
-    //   return;
-    // }
-    // if (islogin) {
-    dispatch(userActions.loginCheckDB(token_key));
-    // }
+    if (!token_key) {
+      return;
+    }
+    if (token_key) {
+      dispatch(userActions.loginCheckDB(token_key));
+    }
   }, []);
 
   return (
@@ -46,7 +46,6 @@ function App() {
         <Route path="/detail/:id" element={<Detail />} />
         <Route path="/cart" element={<CartList />} />
         <Route path="/comment/write/:id" element={<CommentWrite />} />
-        <Route path="/commentbox" element={<CommentBox />} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </div>

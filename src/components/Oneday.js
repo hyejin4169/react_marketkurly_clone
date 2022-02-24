@@ -1,122 +1,141 @@
-import React from 'react';
+import React from "react";
 import styled from "styled-components";
-import CartIcon from '../elements/CartIcon';
+import CartIcon from "../elements/CartIcon";
 import { useSelector } from "react-redux";
-
+import { useNavigate } from "react-router-dom";
 
 const Oneday = (props) => {
+  const navigate = useNavigate();
+  const list = useSelector((state) => state.post.list[3]);
+  console.log(list);
 
-    return (
-        <Wrap>
+  return (
+    <Wrap>
+      <Left>
+        <h2>일일 특가</h2>
+        <h3>24시간 한정 특가</h3>
+      </Left>
 
-            <Left>
-                <h2>일일 특가</h2>
-                <h3>24시간 한정 특가</h3>
-            </Left>
+      <List>
+        <Right>
+          <div>
+            <ImgContainer
+              onClick={() => {
+                navigate("/detail/64");
+                window.scrollTo(0, 0);
+              }}
+            >
+              <a href="#">
+                <img
+                  src={
+                    "https://img-cf.kurly.com/shop/data/goods/1637155079598i0.jpg"
+                  }
+                />
+                <CartIcon></CartIcon>
+              </a>
+            </ImgContainer>
 
-            <List>
-                <Right>
-                    <div>
-                        <ImgContainer>
-                            <a href="#">
-                                <img src={props.Img} />
-                                <CartIcon></CartIcon>
-                            </a>
-                        </ImgContainer>
-
-                        <TextWrap>
-                            <ProductSubTitle>{props.SubTitle}</ProductSubTitle>
-                            <ProductTitle>{props.Title}</ProductTitle>
-                            <CostBox>
-                                <Sale>{props.Sale}%</Sale>
-                                <ProductPrice>{props.SalePrice} 원</ProductPrice>
-                                <SalePrice>{props.Price}원</SalePrice>
-                            </CostBox>
-                        </TextWrap>
-                    </div>
-                </Right>
-                <Right>
-                    <div>
-                        <ImgContainer>
-                            <a href="#">
-                                <img src={props.Img} />
-                                <CartIcon></CartIcon>
-                            </a>
-                        </ImgContainer>
-                        <TextWrap>
-                            <ProductSubTitle>{props.SubTitle}</ProductSubTitle>
-                            <ProductTitle>{props.Title}</ProductTitle>
-                            <CostBox>
-                                <Sale>{props.Sale}%</Sale>
-                                <ProductPrice>{props.SalePrice} 원</ProductPrice>
-                                <SalePrice>{props.Price}원</SalePrice>
-                            </CostBox>
-                        </TextWrap>
-                    </div>
-                </Right>
-            </List>
-
-
-
-        </Wrap>
-    );
+            <TextWrap>
+              <ProductSubTitle>
+                믿고 먹을 수 있는 상품을 합리적인 가격에, KF365
+              </ProductSubTitle>
+              <ProductTitle>
+                [KF365] 김구원선생 국내산 무농약 콩나물 300g
+              </ProductTitle>
+              <CostBox>
+                <ProductPrice>900원</ProductPrice>
+                {/* <SalePrice>{props.Price}원</SalePrice> */}
+              </CostBox>
+            </TextWrap>
+          </div>
+        </Right>
+        <Right>
+          <div>
+            <ImgContainer
+              onClick={() => {
+                navigate("/detail/540");
+                window.scrollTo(0, 0);
+              }}
+            >
+              <a href="#">
+                <img
+                  src={
+                    "https://img-cf.kurly.com/shop/data/goods/1637922958237i0.jpg"
+                  }
+                />
+                <CartIcon></CartIcon>
+              </a>
+            </ImgContainer>
+            <TextWrap>
+              <ProductSubTitle>
+                트러플의 영양을 가득 담은 마스크팩
+              </ProductSubTitle>
+              <ProductTitle>
+                [달바] 화이트 트러플 너리싱 트리트먼트 마스크 2종
+              </ProductTitle>
+              <CostBox>
+                <Sale>66%</Sale>
+                <ProductPrice>1,700원</ProductPrice>
+                <SalePrice>5,000원</SalePrice>
+              </CostBox>
+            </TextWrap>
+          </div>
+        </Right>
+      </List>
+    </Wrap>
+  );
 };
 
 Oneday.defaultProps = {
-    SubTitle: "뜨끈한 국물이 필요할때",
-    Title: "[고래사어묵] 김치 우동 전골",
-    Img: "https://img-cf.kurly.com/shop/data/goods/1644900782348l0.jpg",
-    Sale: "30",
-    Price: "9,900",
-    SalePrice: "6,930"
-}
+  SubTitle: "뜨끈한 국물이 필요할때",
+  Title: "[고래사어묵] 김치 우동 전골",
+  Img: "https://img-cf.kurly.com/shop/data/goods/1644900782348l0.jpg",
+  Sale: "30",
+  Price: "9,900",
+  SalePrice: "6,930",
+};
 
 const Wrap = styled.div`
-    display: flex;
-    margin: 5% auto;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    padding: 80px 0px;  
-`
+  display: flex;
+  margin: 5% auto;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  padding: 80px 0px;
+`;
 
 const List = styled.div`
-    width: 694px;
-    display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
-	justify-content: space-between;
-	align-items: stretch;
-	align-content: flex-start;
-
-`
+  width: 694px;
+  display: flex;
+  justify-content: space-between;
+`;
 
 const Left = styled.div`
-    width: 337px;
-    & h3 {
+  width: 337px;
+  & h3 {
     font-size: 16px;
     color: rgb(153, 153, 153);
     font-weight: normal;
     line-height: 1.3;
     letter-spacing: normal;
     margin-bottom: 24px;
-    }
-`
+  }
+`;
 const Right = styled.div`
-    margin-right: 10px;
-`
+  margin-right: 50px;
+`;
 
 const ImgContainer = styled.div`
-    display: flex;
-    margin: 0px -9px;
-    & a {
-        width: 335px;
-        height: 434px;
-        position: relative;
-        display: block;
-        overflow: hidden;
-    }
-    & img {
-    position:relative;
+  display: flex;
+  margin: 0px -9px;
+  & a {
+    width: 335px;
+    height: 434px;
+    position: relative;
+    display: block;
+    overflow: hidden;
+  }
+  & img {
+    position: relative;
     width: 100%;
     height: 100%;
     margin: 0px;
@@ -139,16 +158,14 @@ const ImgContainer = styled.div`
       -o-transform: scale(1.05);
     }
   }
-`
+`;
 
 const TextWrap = styled.div`
   position: relative;
   z-index: 140;
   display: flex;
   flex-direction: column;
-  padding: 14px 10px 0px 0px;
-`
-
+`;
 
 const CostBox = styled.span`
   display: block;
@@ -163,14 +180,13 @@ const CostBox = styled.span`
 `;
 
 const Sale = styled.span`
-    color: rgb(250, 98, 47);
-    font-weight: 800;
-    line-height: 1.5;
-    white-space: nowrap;
-    font-size: 20px;
-    margin-right: 6px;
-
-`
+  color: rgb(250, 98, 47);
+  font-weight: 800;
+  line-height: 1.5;
+  white-space: nowrap;
+  font-size: 20px;
+  margin-right: 6px;
+`;
 
 const ProductPrice = styled.span`
   font-weight: 700;
@@ -182,13 +198,13 @@ const ProductPrice = styled.span`
 `;
 
 const SalePrice = styled.span`
-    color: rgb(153, 153, 153);
-    font-size: 14px;
-    font-weight: 500;
-    line-height: normal;
-    text-decoration: line-through;
-    margin-top: 2px;
-`
+  color: rgb(153, 153, 153);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration: line-through;
+  margin-top: 2px;
+`;
 
 const ProductTitle = styled.p`
   font-size: 16px;
@@ -207,23 +223,20 @@ const ProductTitle = styled.p`
 `;
 
 const ProductSubTitle = styled.p`
-    font-size: 14px;
-    color: rgb(153, 153, 153);
-    line-height: 1.38;
-    margin-bottom: 4px;
-`
+  font-size: 14px;
+  color: rgb(153, 153, 153);
+  line-height: 1.38;
+  margin-bottom: 4px;
+`;
 
 const CartIconWrap = styled.div`
-    position: absolute;
-    z-index: 300;
-    display: block;
-    right: 16px;
-    bottom: 16px;
-    width: 45px;
-    height: 45px;
-`
-
-
-
+  position: absolute;
+  z-index: 300;
+  display: block;
+  right: 16px;
+  bottom: 16px;
+  width: 45px;
+  height: 45px;
+`;
 
 export default Oneday;

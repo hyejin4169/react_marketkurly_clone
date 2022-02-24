@@ -16,7 +16,7 @@ const Detail = (props) => {
   const pid = params.id;
 
   const detail_list = useSelector((state) => state.post.detail_list);
-  //   console.log(detail_list);
+  // console.log(detail_list);
 
   useEffect(() => {
     dispatch(postActions.detailPostDB(pid));

@@ -1,63 +1,58 @@
 import React from "react";
 import styled from "styled-components";
-import CartIcon from '../elements/CartIcon';
+import CartIcon from "../elements/CartIcon";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { actionCreators as postActions } from "../redux/modules/post";
-
 
 const Card = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const data = props.data
+  const data = props.data;
 
-  const original = data.originalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-  const discounted = data.discountedPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-
+  const original = data.originalPrice
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  const discounted = data.discountedPrice
+    .toString()
+    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 
   return (
-
     <ProductContainer
       onClick={() => {
         navigate(`/detail/${data.pid}`);
+        // window.scrollTo(0, 0);
         // dispatch(postActions.detailPostDB(data.pid))
-      }}>
-
+      }}
+    >
       <React.Fragment>
         <ProductImgWrap>
           <img src={data.mainImageUrl} />
-          <CartIcon ></CartIcon>
+          <CartIcon></CartIcon>
         </ProductImgWrap>
 
-        {
-          (data.discountPercent !== 0) ?
-            <TextWrap>
-              <ProductSubTitle>{data.shortDescription}</ProductSubTitle>
-              <ProductTitle>{data.name}</ProductTitle>
-              <CostBox>
-
-              </CostBox>
-              <CostBox>
-                <Sale>{data.discountPercent}%</Sale>
-                <ProductPrice> {discounted}원</ProductPrice>
-              </CostBox>
-              <SalePrice>{original}원</SalePrice>
-            </TextWrap>
-            :
-            <TextWrap>
-              <ProductTitle>{data.name}</ProductTitle>
-              <CostBox>
-                <ProductPrice>{original} 원</ProductPrice>
-              </CostBox>
-            </TextWrap>
-
-        }
+        {data.discountPercent !== 0 ? (
+          <TextWrap>
+            <ProductSubTitle>{data.shortDescription}</ProductSubTitle>
+            <ProductTitle>{data.name}</ProductTitle>
+            <CostBox></CostBox>
+            <CostBox>
+              <Sale>{data.discountPercent}%</Sale>
+              <ProductPrice> {discounted}원</ProductPrice>
+            </CostBox>
+            <SalePrice>{original}원</SalePrice>
+          </TextWrap>
+        ) : (
+          <TextWrap>
+            <ProductTitle>{data.name}</ProductTitle>
+            <CostBox>
+              <ProductPrice>{original} 원</ProductPrice>
+            </CostBox>
+          </TextWrap>
+        )}
       </React.Fragment>
-
-
-
-    </ProductContainer >
+    </ProductContainer>
   );
 };
 
@@ -87,14 +82,13 @@ const CostBox = styled.span`
 `;
 
 const Sale = styled.span`
-    color: rgb(250, 98, 47);
-    font-size: 16px;
-    font-weight: 800;
-    line-height: 1.5;
-    white-space: nowrap;
-    margin-right: 7px;
-
-`
+  color: rgb(250, 98, 47);
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.5;
+  white-space: nowrap;
+  margin-right: 7px;
+`;
 
 const ProductPrice = styled.span`
   font-weight: 700;
@@ -105,14 +99,13 @@ const ProductPrice = styled.span`
 `;
 
 const SalePrice = styled.span`
-    color: rgb(153, 153, 153);
-    font-size: 15px;
-    font-weight: 500;
-    line-height: normal;
-    text-decoration: line-through;
-    margin-top: 2px;
-
-`
+  color: rgb(153, 153, 153);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration: line-through;
+  margin-top: 2px;
+`;
 
 const ProductSubTitle = styled.p`
   display: block;
@@ -134,7 +127,7 @@ const ProductImgWrap = styled.div`
   overflow: hidden;
   position: relative;
   width: 249px;
-    height: 320px;
+  height: 320px;
   & img {
     position: relative;
     z-index: 150;
@@ -167,9 +160,6 @@ const TextWrap = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 2px;
-`
-
-
-
+`;
 
 export default Card;

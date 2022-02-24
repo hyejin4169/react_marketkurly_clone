@@ -22,6 +22,7 @@ const DetailItem = (props) => {
   // console.log(data);
 
   const price = data.originalPrice;
+  const disconunt = data.discountedPrice;
 
   // 처음 랜더링되고 유저에게 보이는 초기 값  useState(1) 로  초기 값 1로 설정
   const [count, setCount] = useState(1);
@@ -33,6 +34,7 @@ const DetailItem = (props) => {
 
   // 총 합계 금액 구하기
   const setPrice = count * price;
+  const setDisconunt = count * disconunt;
 
   const addCart = () => {
     let product_id = parseInt(pid);
@@ -53,7 +55,7 @@ const DetailItem = (props) => {
             <PriceWrap>
               <p>회원할인가</p>
               <Price>
-                {Number(data.discountedPrice).toLocaleString()}
+                {Number(disconunt).toLocaleString()}
                 <span>원</span>
               </Price>
               <Disconunt>{data.discountPercent}%</Disconunt>
@@ -109,26 +111,31 @@ const DetailItem = (props) => {
                 onClick={downCount}
                 disabled={count < 2}
               ></button>
-              <input
-                type="number"
-                className="inp"
-                onChange={value}
-                value={count}
-              ></input>
+              <input className="inp" onChange={value} value={count}></input>
               <button className="up btn" onClick={upCount}></button>
             </span>
           </Option>
         </BoxSelect>
       </ImgWrap>
-
-      <Total>
-        <div className="price">
-          <strong>총 상품금액 :</strong>
-          <span className="num">{setPrice.toLocaleString()}</span>
-          {/* 금액 " , " 를 사용 : toLocalString() 사용 -> 주의점 : Number.prototype.toLocaleString() 이기때문에 꼭 Number()로 타입변경  */}
-          <span className="won">원</span>
-        </div>
-      </Total>
+      {data.discountPercent == 0 ? (
+        <Total>
+          <div className="price">
+            <strong>총 상품금액 :</strong>
+            <span className="num">{setPrice.toLocaleString()}</span>
+            {/* 금액 " , " 를 사용 : toLocalString() 사용 -> 주의점 : Number.prototype.toLocaleString() 이기때문에 꼭 Number()로 타입변경  */}
+            <span className="won">원</span>
+          </div>
+        </Total>
+      ) : (
+        <Total>
+          <div className="price">
+            <strong>총 상품금액 :</strong>
+            <span className="num">{setDisconunt.toLocaleString()}</span>
+            {/* 금액 " , " 를 사용 : toLocalString() 사용 -> 주의점 : Number.prototype.toLocaleString() 이기때문에 꼭 Number()로 타입변경  */}
+            <span className="won">원</span>
+          </div>
+        </Total>
+      )}
 
       <BtnWrap>
         <button className="btn" onClick={addCart}>

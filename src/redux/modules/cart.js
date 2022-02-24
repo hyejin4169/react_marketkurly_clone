@@ -28,46 +28,19 @@ const initialState = {
 const getCartDB = () => {
   return function (dispatch, getState, { history }) {
     const token_key = `${localStorage.getItem("token")}`;
-    const id = getState().user.user;
-    let list = [];
-    console.log(id);
     axios
-      .get(
-        "http://175.118.48.164:7050/api/carts",
-
-        {
-          headers: {
-            // "content-type": "applicaton/json;charset=UTF-8",
-            // accept: "application/json",
-            Authorization: `Bearer ${token_key}`,
-          },
-        }
-      )
+      .get("http://3.38.153.67/api/carts", {
+        headers: {
+          Authorization: `Bearer ${token_key}`,
+        },
+      })
       .then((res) => {
         console.log("!!!!!CARTLIST 서버에서 가져왔다!!!!!", res.data);
         dispatch(getCart(res.data));
-        // res.data.forEach((a) => list.push(a));
-        // dispatch(getCart(list));
       })
       .catch((err) => {
         console.log("!!!!!CARTLIST 조회 error!!!!!", err);
       });
-
-    // ({
-    //   method: "get",
-    //   url: "http://3.38.153.67/api/carts",
-    //   data: {},
-    //   // data: {
-    //   //   uid: id,
-    //   // },
-    //   headers: {
-    //     // "content-type": "applicaton/json;charset=UTF-8",
-    //     // accept: "application/json",
-    //     Authorization: `Bearer ${token_key}`,
-    //   },
-    // })
-
-    // dispatch(getCart());
   };
 };
 
@@ -78,7 +51,7 @@ const addCartDB = (pid, quantity) => {
     console.log(token_key);
     axios
       .post(
-        `http://175.118.48.164:7050/api/carts/${pid}`,
+        `http://3.38.153.67/api/carts/${pid}`,
         {
           pid: pid,
           quantity: quantity,
@@ -107,7 +80,7 @@ const editCartDB = (pid, quantity) => {
     const token_key = `${localStorage.getItem("token")}`;
     axios
       .put(
-        `http://175.118.48.164:7050/api/carts/${pid}`,
+        `http://3.38.153.67/api/carts/${pid}`,
         {
           pid: pid,
           quantity: quantity,
@@ -136,7 +109,7 @@ const deleteCartDB = (pid) => {
     console.log(_cart_list);
     axios({
       method: "delete",
-      url: `http://175.118.48.164:7050/api/carts/${pid}`,
+      url: `http://3.38.153.67/api/carts/${pid}`,
       data: {
         pid: pid,
       },
@@ -164,31 +137,21 @@ export default handleActions(
   {
     [ADD_CART]: (state, action) =>
       produce(state, (draft) => {
-        // draft.list.unshift(...action.payload.cart_data);
-        let _cart_data = action.payload.cart_data;
-
-        draft.list = draft.list.map((c, i) => {
-          if (c.pid === _cart_data.pid) {
-            let new_quantity = _cart_data.quantity;
-            return { ...c, quantity: new_quantity };
-          } else {
-            return c;
-          }
-        });
+        draft.list.unshift(...action.payload.cart_data);
       }),
     [GET_CART]: (state, action) =>
       produce(state, (draft) => {
         draft.list.push(...action.payload.list);
 
-        // //중복 검사
-        // draft.list = draft.list.reduce((acc, cur) => {
-        //   if (acc.findIndex((a) => a.pid === cur.pid) === -1) {
-        //     return [...acc, cur];
-        //   } else {
-        //     acc[acc.findIndex((a) => a.pid === cur.pid)] = cur;
-        //     return acc;
-        //   }
-        // }, []);
+        //중복 검사
+        draft.list = draft.list.reduce((acc, cur) => {
+          if (acc.findIndex((a) => a.pid === cur.pid) === -1) {
+            return [...acc, cur];
+          } else {
+            acc[acc.findIndex((a) => a.pid === cur.pid)] = cur;
+            return acc;
+          }
+        }, []);
       }),
     [EDIT_CART]: (state, action) =>
       produce(state, (draft) => {

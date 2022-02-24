@@ -12,8 +12,6 @@ const CommentList = (props) => {
   const { pid } = props;
   const comment_list = useSelector((state) => state.comment.list);
   console.log(comment_list);
-  const comment_test = useSelector((state) => state.comment);
-  console.log(comment_test);
 
   const islogin = useSelector((state) => state.user.is_login);
 

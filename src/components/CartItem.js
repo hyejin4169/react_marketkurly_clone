@@ -21,6 +21,7 @@ const CartItem = (props) => {
 
   const deleteItem = () => {
     dispatch(cartActions.deleteCartDB(cart_list.pid));
+    alert("장바구니 물품이 삭제되었습니다!");
   };
 
   return (
@@ -63,7 +64,10 @@ const CartItem = (props) => {
               <div className="price">
                 <div className="real-price">
                   <span className="selling">
-                    {cart_list.price * cart_list.quantity}
+                    {(cart_list.price * cart_list.quantity).toLocaleString(
+                      "ko-KR"
+                    )}
+                    원
                   </span>
                 </div>
                 <div className="counter">
@@ -78,6 +82,7 @@ const CartItem = (props) => {
                   )}
                   {cart_list.quantity > 1 && (
                     <button
+                      style={{ cursor: "pointer" }}
                       type="button"
                       className="btn-minus"
                       onClick={() => {
@@ -89,9 +94,9 @@ const CartItem = (props) => {
                       }}
                     />
                   )}
-
-                  <input defaultValue={cart_list.quantity} className="number" />
+                  <div className="number">{cart_list.quantity}</div>
                   <button
+                    style={{ cursor: "pointer" }}
                     type="button"
                     className="btn-plus"
                     onClick={() => {
@@ -239,7 +244,7 @@ const ItemBox = styled.div`
               }
             }
             .counter {
-              /* display: flex; */
+              display: flex;
               position: absolute;
               /* font-size: 12px; */
               border: 1px solid #e1e1e1;
@@ -280,15 +285,12 @@ const ItemBox = styled.div`
                 }
               }
               .number {
-                padding: 0 0 4px;
                 text-align: center;
-                font-family: noto sans;
-                border: none;
                 font-size: 14px;
                 width: 26px;
                 height: 28px;
                 font-weight: 400;
-                line-height: 18px;
+                line-height: 28px;
               }
             }
           }
